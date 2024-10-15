@@ -1,18 +1,22 @@
 const express = require("express");
 const pool = require("../modules/pool");
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 const router = express.Router();
 
 /**
  * GET all orders
  */
-router.get("/", (req, res) => {
+router.get("/", rejectUnauthenticated, (req, res) => {
   // GET route code here
   const queryText = `SELECT "order"."id" AS "orderId", "order"."status", "order"."total_amount", "order"."created_at", "order"."user_id" AS "userId", json_agg("order_item"."id") AS "products" FROM "order"
     JOIN "order_item" ON "order_item"."order_id"="order"."id"
+    WHERE "order"."user_id"=$1
     GROUP BY "order"."id"
     ORDER BY "created_at" DESC;`;
   pool
-    .query(queryText)
+    .query(queryText, [req.user.id])
     .then((result) => {
       res.send(result.rows);
     })
@@ -25,8 +29,32 @@ router.get("/", (req, res) => {
 // /**
 //  * POST a new order
 //  */
-router.post("/", (req, res) => {
-  //   // POST route code here
+router.post("/", rejectUnauthenticated, (req, res) => {
+  //   // POST route code here, order must look like the below object
+  /*
+  {
+    "status": "purchased",
+    "total_amount": "5700",
+    "products": [
+        {"id": 15,
+        "product_name": "mango",
+        "quantity": 20,
+        "unit_price": 10.00
+        },
+        {"id": 16,
+        "product_name": "peer",
+        "quantity": 500,
+        "unit_price": 10.00 
+        },
+        {"id": 17,
+        "product_name": "banana",
+        "quantity": 50,
+        "unit_price": 10.00 
+        }
+    ]
+
+}
+  */
   const { status, total_amount, products } = req.body;
   const queryText = `
     INSERT INTO "order" ("status", "total_amount", "user_id") VALUES ($1, $2, $3) RETURNING id;`;
@@ -64,7 +92,7 @@ router.post("/", (req, res) => {
 });
 
 //Delete an order and all associated order items
-router.delete("/:orderId", (req, res) => {
+router.delete("/:orderId", rejectUnauthenticated, (req, res) => {
   const queryString = `DELETE FROM "order" WHERE "id"=$1;`;
   pool
     .query(queryString, [req.params.orderId])
