@@ -19,8 +19,10 @@ import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
-import Product from "../Product/Product";
+
+import OrderPage from "../OrderPage/OrderPage";
 import "./App.css";
+import ProductList from "../ProductList/ProductList";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,7 +70,10 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
           <ProtectedRoute exact path="/product">
-            <Product />
+            <ProductList />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/order">
+            <OrderPage />
           </ProtectedRoute>
           <Route exact path="/login">
             {user.id ? (
