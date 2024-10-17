@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
 // component name TemplateFunction with the name for the new component.
@@ -9,6 +9,7 @@ function ProductList(props) {
   // a default value of 'Functional Component'
   const products = useSelector((store) => store.product);
   const [product, setProduct] = useState("My product page");
+  const history = useHistory();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({
@@ -19,10 +20,13 @@ function ProductList(props) {
 
   const addToCart = (productId) => {
     console.log("add item to the cart", productId);
+    history.push(`/cart/${productId}`);
   };
 
   const viewDetails = (productId) => {
     console.log("navigate to product detail page", productId);
+
+    history.push(`/details/${productId}`);
   };
 
   return (
@@ -35,28 +39,18 @@ function ProductList(props) {
             <tr>
               <th>name</th>
               <th>price</th>
-              {/* <th>description</th> */}
-              {/* <th>category</th>
-              <th>stock_quantity</th>
-              <th>is_featured</th>
-              <th>created_at</th>
-              <th>updated_at</th> */}
+
               <th>Image_url</th>
               <th></th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {products.map((product, id) => (
-              <tr key={id}>
+            {products.map((product, productId) => (
+              <tr key={productId}>
                 <td>{product.name}</td>
                 <td>{product.price}</td>
-                {/* <td>{product.description}</td>
-                <td>{product.category}</td>
-                <td>{product.stock_quantity}</td>
-                <td>{product.is_featured}</td>
-                <td>{product.created_at}</td>
-                <td>{product.updated_at}</td> */}
+
                 <td>{product.image_url}</td>
                 <td>
                   <button onClick={() => addToCart(product.id)}>

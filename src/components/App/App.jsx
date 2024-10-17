@@ -23,7 +23,9 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import OrderPage from "../OrderPage/OrderPage";
 import "./App.css";
 import ProductList from "../ProductList/ProductList";
-
+import ProductDetails from "../ProductDetails/ProductDetails";
+import ProductForm from "../ProductForm/ProductForm";
+import Cart from "../Cart/Cart";
 function App() {
   const dispatch = useDispatch();
 
@@ -69,12 +71,27 @@ function App() {
           >
             <InfoPage />
           </ProtectedRoute>
+
           <ProtectedRoute exact path="/product">
             <ProductList />
           </ProtectedRoute>
+
+          <ProtectedRoute exact path="/details/:id">
+            <ProductDetails />
+          </ProtectedRoute>
+
           <ProtectedRoute exact path="/order">
             <OrderPage />
           </ProtectedRoute>
+
+          <ProtectedRoute exact path="/productform">
+            <ProductForm />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/cart">
+            <Cart />
+          </ProtectedRoute>
+
           <Route exact path="/login">
             {user.id ? (
               // If the user is already logged in,
