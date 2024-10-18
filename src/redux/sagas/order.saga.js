@@ -11,8 +11,18 @@ function* fetchOrder() {
   }
 }
 
+function* addOrder(action) {
+  try {
+    yield axios.post("/api/order", action.payload);
+    yield put({ type: "FETCH_ORDER" });
+  } catch (error) {
+    console.log("create order request failed", error);
+  }
+}
+
 function* orderSaga() {
   yield takeLatest("FETCH_ORDER", fetchOrder);
+  yield takeLatest("ADD_ORDER", addOrder);
 }
 
 export default orderSaga;

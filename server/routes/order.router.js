@@ -35,6 +35,8 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   {
     "status": "purchased",
     "total_amount": "5700",
+    "user_id",
+    "option",
     "products": [
         {"id": 15,
         "product_name": "mango",
@@ -55,11 +57,11 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 
 }
   */
-  const { status, total_amount, products } = req.body;
+  const { status, total_amount, products, option } = req.body;
   const queryText = `
-    INSERT INTO "order" ("status", "total_amount", "user_id") VALUES ($1, $2, $3) RETURNING id;`;
+    INSERT INTO "order" ("status", "total_amount", "user_id", "option") VALUES ($1, $2, $3, $4) RETURNING id;`;
   pool
-    .query(queryText, [status, total_amount, req.user.id])
+    .query(queryText, [status, total_amount, req.user.id, option])
     .then((result) => {
       console.log("Posted an order");
       const orderId = result.rows[0].id;

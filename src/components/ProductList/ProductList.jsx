@@ -22,6 +22,7 @@ function ProductList(props) {
     console.log("add item to the cart", product);
     //dispatch to 'SET_CART' to add my product the global cart store
     //product is one product item added to the cart
+
     dispatch({
       type: "SET_CART",
       payload: product,
@@ -73,14 +74,15 @@ function ProductList(props) {
                 </td>
               </tr>
             ))}
-            <td>
-              <button onClick={() => goToCart(product)}>Go To Cart</button>
-            </td>
           </tbody>
         </table>
       ) : (
         <p>No products found</p>
       )}
+      <br />
+      <td>
+        <button onClick={() => goToCart(product)}>Go To Cart</button>
+      </td>
     </div>
   );
 }

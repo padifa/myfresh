@@ -5,24 +5,26 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 function Cart() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const order = useSelector((store) => store.product);
-  const products = useSelector((store) => store.product);
-  const customer = useSelector((store) => store.product);
-  const foundProducts = order.map((productOrder) =>
-    products.find((prod) => prod.id === productOrder.id)
-  );
+  const cart = useSelector((store) => store.cart);
+  console.log("items in my cart", cart);
+  const [type, setType] = useState("");
 
-  const totalCost = foundProducts
+  const totalCost = cart
     .reduce((total, product) => total + parseFloat(product?.price || 0), 0)
     .toFixed(2);
 
   const handleCart = () => {
+    console.log("total amount", totalCost);
     const newOrder = {
-      ...customer,
-      products: order,
-      total: totalCost,
+      products: cart,
+      total_amount: totalCost,
+      status: "pending",
+      option: type,
     };
-    dispatch({ type: "SUBMIT_CART", payload: newOrder });
+
+    console.log("my new order", newOrder);
+    dispatch({ type: "ADD_ORDER", payload: newOrder });
+    dispatch({ type: "UNSET_CART" });
     history.push("/");
   };
 
@@ -30,23 +32,16 @@ function Cart() {
     console.log("type selection", event.target.id);
     setType(event.target.id);
   };
+  const handleDelete = (id) => {
+    dispatch({ type: "REMOVE_PRODUCT_FROM_CART", payload: id });
+  };
+
   return (
     <>
       <div className="customer-info" style={{ backgroundColor: "#11ee52" }}>
-        <h2>Order List</h2>
-        {JSON.stringify(products)}
-        <ul>
-          <li>Username: {customer.username}</li>
-          <li>Phone Number: {customer.phone_number}</li>
-          <li>E_mail: {customer.email}</li>
-          <li>Address: {customer.address}</li>
-          <li>City: {customer.city}</li>
-          <li>Country: {customer.country}</li>
-          <li>Zip: {customer.zip}</li>
-        </ul>
+        <h2>Cart</h2>
       </div>
       <div className="cart_container">
-        <h2>Cart</h2>
         <table className="cart_table">
           <thead>
             <tr>
@@ -55,15 +50,25 @@ function Cart() {
             </tr>
           </thead>
           <tbody>
-            {foundProducts.map((item, index) => (
+            {cart.map((item, index) => (
               <tr key={index}>
                 <td>{item?.name}</td>
                 <td>${item?.price}</td>
+                <td>
+                  <button
+                    onClick={() => handleDelete(item?.id)}
+                    style={{ backgroundColor: "red", color: "white" }}
+                  >
+                    Remove
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <label>Total:</label>
+        <hr />
+        <label>Total: ${totalCost}</label>
+        <br />
         <button type="button" id="delivery" onClick={handleType}>
           Delivery
         </button>

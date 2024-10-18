@@ -11,7 +11,6 @@ const passport = require("./strategies/user.strategy");
 const userRouter = require("./routes/user.router");
 const productRouter = require("./routes/product.router");
 const orderRouter = require("./routes/order.router");
-
 // Express Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
