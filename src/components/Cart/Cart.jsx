@@ -8,9 +8,18 @@ function Cart() {
   const cart = useSelector((store) => store.cart);
   console.log("items in my cart", cart);
   const [type, setType] = useState("");
+  const [quantity, setQuantity] = useState(1);
 
+  const handleProductTotal = (price) => {
+    //product price *
+    return price * quantity;
+  };
   const totalCost = cart
-    .reduce((total, product) => total + parseFloat(product?.price || 0), 0)
+    .reduce(
+      (total, product) =>
+        total + parseFloat(handleProductTotal(product?.price) || 0),
+      0
+    )
     .toFixed(2);
 
   const handleCart = () => {
@@ -23,8 +32,8 @@ function Cart() {
     };
 
     console.log("my new order", newOrder);
-    dispatch({ type: "ADD_ORDER", payload: newOrder });
-    dispatch({ type: "UNSET_CART" });
+    // dispatch({ type: "ADD_ORDER", payload: newOrder });
+    // dispatch({ type: "UNSET_CART" });
     history.push("/");
   };
 
@@ -47,13 +56,19 @@ function Cart() {
             <tr>
               <th>Product</th>
               <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
             </tr>
           </thead>
           <tbody>
             {cart.map((item, index) => (
               <tr key={index}>
                 <td>{item?.name}</td>
-                <td>${item?.price}</td>
+                <td>${item?.price} x </td>
+                <td>
+                  <input value="1" type="number" />
+                </td>
+                <td>${item.price}</td>
                 <td>
                   <button
                     onClick={() => handleDelete(item?.id)}
@@ -67,7 +82,7 @@ function Cart() {
           </tbody>
         </table>
         <hr />
-        <label>Total: ${totalCost}</label>
+        <label>Total Order: ${totalCost}</label>
         <br />
         <button type="button" id="delivery" onClick={handleType}>
           Delivery

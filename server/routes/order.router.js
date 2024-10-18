@@ -72,7 +72,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
         pool
           .query(orderItemQueryText, [
             product.product_name,
-            product.quantity,
+            1,
             product.unit_price,
             orderId,
           ])
