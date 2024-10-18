@@ -18,15 +18,24 @@ function ProductList(props) {
     setProduct;
   }, []);
 
-  const addToCart = (productId) => {
-    console.log("add item to the cart", productId);
-    history.push(`/cart/${productId}`);
+  const addToCart = (product) => {
+    console.log("add item to the cart", product);
+    //dispatch to 'SET_CART' to add my product the global cart store
+    //product is one product item added to the cart
+    dispatch({
+      type: "SET_CART",
+      payload: product,
+    });
   };
 
   const viewDetails = (productId) => {
     console.log("navigate to product detail page", productId);
 
     history.push(`/details/${productId}`);
+  };
+
+  const goToCart = () => {
+    history.push(`/cart`);
   };
 
   return (
@@ -53,7 +62,7 @@ function ProductList(props) {
 
                 <td>{product.image_url}</td>
                 <td>
-                  <button onClick={() => addToCart(product.id)}>
+                  <button onClick={() => addToCart(product)}>
                     Add to cart
                   </button>
                 </td>
@@ -64,6 +73,9 @@ function ProductList(props) {
                 </td>
               </tr>
             ))}
+            <td>
+              <button onClick={() => goToCart(product)}>Go To Cart</button>
+            </td>
           </tbody>
         </table>
       ) : (

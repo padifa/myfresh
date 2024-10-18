@@ -1,9 +1,10 @@
-const cartReducer = (state = {}, action) => {
+const cartReducer = (state = [], action) => {
+  //a product item looks like this: {id: '1', name: 'apples', ...};
   switch (action.type) {
     case "SET_CART":
-      return { ...state, [action.payload.key]: action.payload.value };
+      return [...state, action.payload];
     case "UNSET_CART":
-      return {};
+      return [];
     default:
       return state;
   }
