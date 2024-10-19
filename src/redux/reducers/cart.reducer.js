@@ -3,6 +3,11 @@ const cartReducer = (state = [], action) => {
   switch (action.type) {
     case "SET_CART":
       return [...state, action.payload];
+    case "REMOVE_PRODUCT_FROM_CART":
+      const newArray = [...state];
+      return newArray.filter(
+        (product) => Number(product.id) !== Number(action.payload)
+      );
     case "UNSET_CART":
       return [];
     default:
