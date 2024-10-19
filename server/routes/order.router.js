@@ -30,6 +30,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 //  * POST a new order
 //  */
 router.post("/", rejectUnauthenticated, (req, res) => {
+  console.log("req.body", req.body);
   //   // POST route code here, order must look like the below object
   /*
   {
@@ -39,19 +40,19 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     "option",
     "products": [
         {"id": 15,
-        "product_name": "mango",
+        "name": "mango",
         "quantity": 20,
-        "unit_price": 10.00
+        "price": 10.00
         },
         {"id": 16,
-        "product_name": "peer",
+        "name": "peer",
         "quantity": 500,
-        "unit_price": 10.00 
+        "price": 10.00 
         },
         {"id": 17,
-        "product_name": "banana",
+        "name": "banana",
         "quantity": 50,
-        "unit_price": 10.00 
+        "price": 10.00 
         }
     ]
 
@@ -71,9 +72,9 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       products.forEach((product) => {
         pool
           .query(orderItemQueryText, [
-            product.product_name,
-            1,
-            product.unit_price,
+            product.name,
+            product.quantity,
+            product.price,
             orderId,
           ])
           .then((result) => {
