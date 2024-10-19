@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-function Cart() {
+function CartList() {
   const dispatch = useDispatch();
   const history = useHistory();
   const cart = useSelector((store) => store.cart);
@@ -55,13 +55,11 @@ function Cart() {
           <thead>
             <tr>
               <th>Product</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Total</th>
+              <th>Price x Quantity</th>
             </tr>
           </thead>
           <tbody>
-            {cart.map((item, index) => (
+            {cart.map((item) => (
               <tr key={index}>
                 <td>{item?.name}</td>
                 <td>${item?.price} x </td>
@@ -97,4 +95,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default CartList;

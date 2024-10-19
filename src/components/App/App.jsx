@@ -25,7 +25,7 @@ import "./App.css";
 import ProductList from "../ProductList/ProductList";
 import ProductDetails from "../ProductDetails/ProductDetails";
 import ProductForm from "../ProductForm/ProductForm";
-import Cart from "../Cart/Cart";
+import CartList from "../CartList/CartList";
 function App() {
   const dispatch = useDispatch();
 
@@ -89,7 +89,7 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/cart">
-            <Cart />
+            <CartList />
           </ProtectedRoute>
 
           <Route exact path="/login">
