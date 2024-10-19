@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -10,6 +10,7 @@ function ProductListItem({ product }) {
   const [quantity, setQuantity] = useState(1);
   //   const viewDetails =
   //   const store = useSelector((store) => store);
+  const dispatch = useDispatch();
   const viewDetails = (productId) => {
     console.log("navigate to product detail page", productId);
 
@@ -23,7 +24,7 @@ function ProductListItem({ product }) {
     cartItem.quantity = quantity;
 
     dispatch({
-      type: "SET_CART",
+      type: "ADD_TO_CART",
       payload: cartItem,
     });
   };
@@ -37,6 +38,11 @@ function ProductListItem({ product }) {
       setQuantity(1);
     }
   };
+  //   useEffect(() => {
+  //     dispatch({
+  //       type: "SET_CART",
+  //     });
+  //   }, []);
 
   return (
     <tr>

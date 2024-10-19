@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import CartListItem from "../CartListItem/CartListItem";
 
 function CartList() {
   const dispatch = useDispatch();
   const history = useHistory();
   const cart = useSelector((store) => store.cart);
   console.log("items in my cart", cart);
-  const [type, setType] = useState("");
-  const [quantity, setQuantity] = useState(1);
 
-  const handleProductTotal = (price) => {
-    //product price *
-    return price * quantity;
-  };
+  const [type, setType] = useState("");
+
   const totalCost = cart
     .reduce(
       (total, product) =>
-        total + parseFloat(handleProductTotal(product?.price) || 0),
+        total +
+        parseFloat(Number(product?.price) * Number(product?.quantity) || 0),
       0
     )
     .toFixed(2);
@@ -32,8 +30,8 @@ function CartList() {
     };
 
     console.log("my new order", newOrder);
-    // dispatch({ type: "ADD_ORDER", payload: newOrder });
-    // dispatch({ type: "UNSET_CART" });
+    dispatch({ type: "ADD_ORDER", payload: newOrder });
+    dispatch({ type: "UNSET_CART" });
     history.push("/");
   };
 
@@ -41,9 +39,9 @@ function CartList() {
     console.log("type selection", event.target.id);
     setType(event.target.id);
   };
-  const handleDelete = (id) => {
-    dispatch({ type: "REMOVE_PRODUCT_FROM_CART", payload: id });
-  };
+  useEffect(() => {
+    console.log("the cart", cart.length);
+  }, []);
 
   return (
     <>
@@ -56,31 +54,17 @@ function CartList() {
             <tr>
               <th>Product</th>
               <th>Price x Quantity</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            {cart.map((item) => (
-              <tr key={index}>
-                <td>{item?.name}</td>
-                <td>${item?.price} x </td>
-                <td>
-                  <input value="1" type="number" />
-                </td>
-                <td>${item.price}</td>
-                <td>
-                  <button
-                    onClick={() => handleDelete(item?.id)}
-                    style={{ backgroundColor: "red", color: "white" }}
-                  >
-                    Remove
-                  </button>
-                </td>
-              </tr>
+            {cart?.map((item) => (
+              <CartListItem key={item.id} item={item} />
             ))}
           </tbody>
         </table>
         <hr />
-        <label>Total Order: ${totalCost}</label>
+        <label>Total : ${totalCost}</label>
         <br />
         <button type="button" id="delivery" onClick={handleType}>
           Delivery
