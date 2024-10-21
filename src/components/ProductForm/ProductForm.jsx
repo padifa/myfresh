@@ -9,7 +9,7 @@ function ProductForm({ addNewProduct }) {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
-  // const [isFeatured, setIsFeatured] = useState("false");
+  const [isFeatured, setIsFeatured] = useState("false");
   // const [type, setType] = useState("");
   //   const product = useSelector((store) => store.product);
 
@@ -21,9 +21,9 @@ function ProductForm({ addNewProduct }) {
       category,
       description,
       stock_quantity: stockQuantity,
-      // is_featured: isFeatured,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
+      isFeatured,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
     console.log("the order", orderData);
     dispatch({ type: "ADD_PRODUCT", payload: orderData });
@@ -88,7 +88,7 @@ function ProductForm({ addNewProduct }) {
           value={stockQuantity}
           onChange={(event) => setStockQuantity(event.target.value)}
         />
-        {/* <br />
+        <br />
         <label>Is featured</label>
         <br />
         <input
@@ -96,7 +96,7 @@ function ProductForm({ addNewProduct }) {
           name="isFeatured"
           checked={false}
           onChange={(event) => setIsFeatured(event.target.value)}
-        /> */}
+        />
 
         <br />
 
