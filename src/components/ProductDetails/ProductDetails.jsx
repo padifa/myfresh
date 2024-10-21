@@ -2,28 +2,57 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { Card } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 
 function ProductDetails(props) {
   const { id } = useParams();
   console.log("my product id", id);
 
   const products = useSelector((store) => store.product);
+  const user = useSelector((store) => store.user);
   const history = useHistory();
+  const dispatch = useDispatch();
   const product = products.find((product) => Number(product.id) === Number(id));
   const [details, setDetails] = useState("Product Details");
-  const handleClick = () => {
-    history.push(`/`);
+  // const handleClick = () => {
+  //   history.push(`/`);
+  // };
+  const myProducts = products.filter(
+    (product) => Number(product.user_id) === Number(user.id)
+  );
+  console.log("My products", myProducts);
+
+  const handleEdit = (productId) => {
+    history.push(`/edit/productForm/${productId}`);
+    console.log("edit this product", productId);
+  };
+  const handleDelete = (productId) => {
+    dispatch({
+      type: "DELETE_PRODUCT",
+      payload: productId,
+    });
+    history.push("/product");
   };
 
   return (
     <div style={{ backgroundColor: "#11ee52" }}>
-      <h2>Product Details</h2>
-      {JSON.stringify(product)}
+      {user.role === "farmer" && (
+        <div>
+          <button onClick={() => handleEdit(product.id)}> Edit</button>{" "}
+          <button
+            onClick={() => handleDelete(product.id)}
+            style={{ backgroundColor: "red", color: "white" }}
+          >
+            Remove
+          </button>
+        </div>
+      )}
 
-      {/* {product.id ? (
+      {product?.id ? (
         <>
-          <h1>{product.name}</h1>
-          <img src={product.poster} alt={product.name} />
+          <h1>{product?.name}</h1>
+          <img src={product?.poster} alt={product?.name} />
           <Card
             className="shadow-sm mb-4"
             style={{ backgroundColor: "#fff3cd" }}
@@ -33,12 +62,12 @@ function ProductDetails(props) {
                 className="lead text-dark"
                 style={{ fontSize: "1.1rem", lineHeight: "1.5" }}
               >
-                {product.description}
-                {product.category}
-                {product.stock_quantity}
-                {product.is_featured}
-                {product.created_at}
-                {product.updated_at}
+                {product?.description}
+                {product?.category}
+                {product?.stock_quantity}
+
+                {product?.created_at}
+                {product?.updated_at}
               </Card.Text>
             </Card.Body>
           </Card>
@@ -47,7 +76,7 @@ function ProductDetails(props) {
         </>
       ) : (
         <p>Product not found</p>
-      )} */}
+      )}
     </div>
   );
 }
