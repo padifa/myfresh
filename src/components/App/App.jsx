@@ -26,6 +26,7 @@ import ProductList from "../ProductList/ProductList";
 import ProductDetails from "../ProductDetails/ProductDetails";
 import ProductForm from "../ProductForm/ProductForm";
 import CartList from "../CartList/CartList";
+import ProductEditForm from "../ProductForm/ProductEditForm";
 function App() {
   const dispatch = useDispatch();
 
@@ -33,6 +34,10 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_PRODUCT" });
   }, [dispatch]);
 
   return (
@@ -84,8 +89,12 @@ function App() {
             <OrderPage />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/productform">
+          <ProtectedRoute exact path="/productForm">
             <ProductForm />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/edit/productForm/:id">
+            <ProductEditForm />
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/cart">

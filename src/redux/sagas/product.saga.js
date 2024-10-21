@@ -32,9 +32,30 @@ function* addProduct(action) {
     console.log("Product post request failed", error);
   }
 }
+function* deleteProduct(action) {
+  try {
+    yield axios.delete(`/api/product/${action.payload}`);
+    yield put({ type: "FETCH_PRODUCT" });
+  } catch (error) {
+    console.log("Delete request failed", error);
+  }
+}
+function* updateProduct(action) {
+  //action.payload should look like this:
+  // action.payload.id = the productId
+  // action.payload.data = {id: '4', 'name': 'name of product', etc...};
+  try {
+    yield axios.put(`/api/product/${action.payload.id}`, action.payload.data);
+    yield put({ type: "FETCH_PRODUCT" });
+  } catch (error) {
+    console.log("Update request failed", error);
+  }
+}
 function* productSaga() {
   yield takeLatest("FETCH_PRODUCT", fetchProduct);
   yield takeLatest("ADD_PRODUCT", addProduct);
+  yield takeLatest("DELETE_PRODUCT", deleteProduct);
+  yield takeLatest("UPDATE_PRODUCT", updateProduct);
 }
 
 export default productSaga;

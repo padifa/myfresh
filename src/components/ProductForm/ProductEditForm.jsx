@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-function ProductForm() {
+import { useParams } from "react-router-dom";
+function ProductEditForm() {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const [name, setName] = useState("");
@@ -13,6 +15,8 @@ function ProductForm() {
   // const [isFeatured, setIsFeatured] = useState("false");
   // const [type, setType] = useState("");
   //   const product = useSelector((store) => store.product);
+
+  console.log("MY PRODUCT ID", id);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -108,11 +112,11 @@ function ProductForm() {
           onChange={(event) => setIsFeatured(event.target.value)}
         />
 
-        <br /> */}
-
-        <button type="submit">Add New Product</button>
+        */}
+        <br />
+        <button type="submit">Update Product</button>
       </form>
     </div>
   );
 }
-export default ProductForm;
+export default ProductEditForm;

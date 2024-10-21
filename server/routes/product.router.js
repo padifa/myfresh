@@ -27,31 +27,20 @@ router.get("/", rejectUnauthenticated, (req, res) => {
  */
 router.post("/", rejectUnauthenticated, (req, res) => {
   // POST route code here
-  const {
-    name,
-    description,
-    price,
-    stock_quantity,
-    image_url,
-    category,
-    isFeatured,
-    createdAt,
-    updatedAt,
-  } = req.body;
+  console.log("new product to db", req.body);
+  const { name, description, price, stock_quantity, image_url, category } =
+    req.body;
   const queryText = `
-    INSERT INTO "product" ("name", "description", "price", "stock_quantity", "image_url", "category", "is_featured", "created_at", "updated_at", "user_id")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id;`;
+    INSERT INTO "product" ("name", "description", "price", "stock_quantity", "image_url", "category", "user_id")
+    VALUES ($1, $2, $3, $4, $5, $6, $7 ) RETURNING id;`;
   pool
     .query(queryText, [
       name,
       description,
-      price,
-      stock_quantity,
+      Number(price),
+      Number(stock_quantity),
       image_url,
       category,
-      isFeatured,
-      createdAt,
-      updatedAt,
       req.user.id,
     ])
     .then((result) => {
@@ -74,8 +63,8 @@ router.put("/:productId", rejectUnauthenticated, (req, res) => {
     .query(sqlText, [
       name,
       description,
-      price,
-      stock_quantity,
+      Number(price),
+      Number(stock_quantity),
       image_url,
       category,
       productId,

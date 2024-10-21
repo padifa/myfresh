@@ -11,6 +11,7 @@ function ProductList(props) {
   const products = useSelector((store) => store.product);
   const history = useHistory();
   const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
   useEffect(() => {
     dispatch({
       type: "FETCH_PRODUCT",
@@ -19,9 +20,17 @@ function ProductList(props) {
   const goToCart = () => {
     history.push(`/cart`);
   };
+  const addProduct = (event) => {
+    console.log("add new product");
+    history.push(`/productForm`);
+  };
+
   return (
     <div>
       <button onClick={goToCart}>Go To Cart</button>
+      {user.role === "farmer" && (
+        <button onClick={addProduct}>Add Product</button>
+      )}
 
       {products && products.length > 0 ? (
         <table className="product_table">
