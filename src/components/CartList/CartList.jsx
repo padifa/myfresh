@@ -32,7 +32,7 @@ function CartList() {
     console.log("my new order", newOrder);
     dispatch({ type: "ADD_ORDER", payload: newOrder });
     dispatch({ type: "UNSET_CART" });
-    history.push("/");
+    history.push("/order");
   };
 
   const handleType = (event) => {
