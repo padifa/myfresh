@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useSelector } from "react-redux";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -9,6 +10,7 @@ function ProductListItem({ product }) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const [quantity, setQuantity] = useState(1);
+  const user = useSelector((store) => store.user);
   //   const viewDetails =
   //   const store = useSelector((store) => store);
   const dispatch = useDispatch();
@@ -40,6 +42,12 @@ function ProductListItem({ product }) {
       setQuantity(1);
     }
   };
+  const handleDelete = (productId) => {
+    dispatch({
+      type: "DELETE_PRODUCT",
+      payload: productId,
+    });
+  };
 
   //   useEffect(() => {
   //     dispatch({
@@ -64,6 +72,16 @@ function ProductListItem({ product }) {
       </td>
       <td>
         <button onClick={() => viewDetails(product.id)}>Details</button>
+      </td>
+      <td>
+        {user.role === "farmer" && (
+          <button
+            onClick={() => handleDelete(product.id)}
+            style={{ backgroundColor: "red", color: "white" }}
+          >
+            Remove
+          </button>
+        )}
       </td>
     </tr>
   );

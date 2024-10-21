@@ -28,10 +28,12 @@ function Nav() {
               Home
             </Link>
 
-            <Link className="navLink" to="/info">
-              Info Page
+            <Link className="navLink" to="/product">
+              Products
             </Link>
-
+            <Link className="navLink" to="/order">
+              Orders
+            </Link>
             <LogOutButton className="navLink" />
           </>
         )}
