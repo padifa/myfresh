@@ -9,20 +9,10 @@ function ProductForm({ addNewProduct }) {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
-  const [isFeatured, setIsFeatured] = useState("");
-  const [createdAt, setCreatedAt] = useState("");
-  const [updatedAt, setUpdatedAt] = useState("");
-  const [type, setType] = useState("");
+  // const [isFeatured, setIsFeatured] = useState("false");
+  // const [type, setType] = useState("");
   //   const product = useSelector((store) => store.product);
-  const addProduct = (event) => {
-    event.preventDefault();
-    useEffect(() => {
-      dispatch({
-        type: "FORM_INPUT",
-      });
-      history.push("/product");
-    });
-  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const orderData = {
@@ -30,23 +20,22 @@ function ProductForm({ addNewProduct }) {
       price,
       category,
       description,
-      stockQuantity,
-      isFeatured,
-      createdAt,
-      updatedAt,
-      type,
+      stock_quantity: stockQuantity,
+      // is_featured: isFeatured,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
     };
     console.log("the order", orderData);
-    dispatch({ type: "CUSTOMER_ORDER", payload: orderData });
+    dispatch({ type: "ADD_PRODUCT", payload: orderData });
     history.push("/product");
   };
-  const handleType = (event) => {
-    console.log("type selection", event.target.id);
-    setType(event.target.id);
-  };
+  // const handleType = (event) => {
+  //   console.log("type selection", event.target.id);
+  //   setType(event.target.id);
+  // };
   return (
     <div>
-      <form onSubmit={addProduct}>
+      <form onSubmit={handleSubmit}>
         <label>Name</label>
         <br />
         <input
@@ -99,43 +88,19 @@ function ProductForm({ addNewProduct }) {
           value={stockQuantity}
           onChange={(event) => setStockQuantity(event.target.value)}
         />
-        <br />
-        <label>Created at</label>
-        <br />
-        <input
-          type="text"
-          name="createdAt"
-          placeholder="Created At"
-          required
-          value={createdAt}
-          onChange={(event) => setCreatedAt(event.target.value)}
-        />
-        <br />
-        <label>Updated at</label>
-        <br />
-        <input
-          type="text"
-          name="updatedAt"
-          placeholder="Updated At"
-          required
-          value={updatedAt}
-          onChange={(event) => setUpdatedAt(event.target.value)}
-        />
-        <br />
+        {/* <br />
         <label>Is featured</label>
         <br />
         <input
-          type="text"
+          type="checkbox"
           name="isFeatured"
-          placeholder="Is Featured"
-          required
-          value={isFeatured}
+          checked={false}
           onChange={(event) => setIsFeatured(event.target.value)}
-        />
+        /> */}
 
-        <button type="submit" onClick={handleSubmit}>
-          Add New Product
-        </button>
+        <br />
+
+        <button type="submit">Add New Product</button>
       </form>
     </div>
   );

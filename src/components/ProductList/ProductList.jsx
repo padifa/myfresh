@@ -15,7 +15,7 @@ function ProductList(props) {
     dispatch({
       type: "FETCH_PRODUCT",
     });
-  }, []);
+  }, [dispatch]);
   const goToCart = () => {
     history.push(`/cart`);
   };

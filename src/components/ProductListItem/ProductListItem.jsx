@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
 // component name TemplateFunction with the name for the new component.
@@ -11,6 +11,7 @@ function ProductListItem({ product }) {
   //   const viewDetails =
   //   const store = useSelector((store) => store);
   const dispatch = useDispatch();
+  const history = useHistory();
   const viewDetails = (productId) => {
     console.log("navigate to product detail page", productId);
 
