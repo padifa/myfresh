@@ -12,7 +12,7 @@ function ProductListItem({ product }) {
   //   const viewDetails =
   //   const store = useSelector((store) => store);
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const viewDetails = (productId) => {
     console.log("navigate to product detail page", productId);
 

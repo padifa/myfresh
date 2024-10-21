@@ -2,25 +2,33 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 function ProductEditForm() {
   const { id } = useParams();
+  console.log("MY PRODUCT ID", id);
+
+  //1. find the product in the redux store with the id that matches the 'id' from useParams.
+  //2. set local state to use the found product.
+  const products = useSelector((store) => store.product);
+  const product = products.find((product) => Number(product.id) === Number(id));
+
   const dispatch = useDispatch();
   const history = useHistory();
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  const [stockQuantity, setStockQuantity] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [name, setName] = useState(product.name ?? "");
+  const [price, setPrice] = useState(product.price ?? "");
+  const [category, setCategory] = useState(product.category ?? "");
+  const [description, setDescription] = useState(product.description ?? "");
+  const [stockQuantity, setStockQuantity] = useState(
+    product.stock_quantity ?? ""
+  );
+  const [imageUrl, setImageUrl] = useState(product.image_url || "");
   // const [isFeatured, setIsFeatured] = useState("false");
   // const [type, setType] = useState("");
   //   const product = useSelector((store) => store.product);
 
-  console.log("MY PRODUCT ID", id);
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newProduct = {
+    const updateProduct = {
       name,
       price,
       category,
@@ -29,14 +37,22 @@ function ProductEditForm() {
       // isFeatured,
       image_url: imageUrl,
     };
-    console.log("the new product", newProduct);
-    dispatch({ type: "ADD_PRODUCT", payload: newProduct });
+    console.log("the updated product", updateProduct);
+    dispatch({
+      type: "UPDATE_PRODUCT",
+      payload: { id: id, data: updateProduct },
+    });
     history.push("/product");
   };
   // const handleType = (event) => {
   //   console.log("type selection", event.target.id);
   //   setType(event.target.id);
   // };
+
+  useEffect(() => {
+    console.log("get the id from url");
+  }, [id]);
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
