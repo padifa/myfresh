@@ -27,6 +27,9 @@ import ProductDetails from "../ProductDetails/ProductDetails";
 import ProductForm from "../ProductForm/ProductForm";
 import CartList from "../CartList/CartList";
 import ProductEditForm from "../ProductForm/ProductEditForm";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+
 function App() {
   const dispatch = useDispatch();
 

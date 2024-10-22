@@ -10,11 +10,19 @@ const router = express.Router();
  */
 router.get("/", rejectUnauthenticated, (req, res) => {
   // GET route code here
-  const queryText = `SELECT "order"."id" AS "orderId", "order"."status", "order"."total_amount", "order"."created_at", "order"."user_id" AS "userId", json_agg("order_item"."id") AS "products" FROM "order"
-    JOIN "order_item" ON "order_item"."order_id"="order"."id"
-    WHERE "order"."user_id"=$1
-    GROUP BY "order"."id"
-    ORDER BY "created_at" DESC;`;
+  const queryText = `
+  SELECT "order"."id" AS "orderId", "order"."status", "order"."total_amount", "order"."created_at", json_agg(
+        json_build_object(
+            'itemId', "order_item"."id",
+            'quantity', "order_item"."quantity",
+            'price', "order_item"."unit_price",
+            'productName', "order_item"."product_name"
+        )
+    ) AS "products", "order"."user_id" AS "userId" FROM "order"
+JOIN "order_item" ON "order_item"."order_id"="order"."id"
+WHERE "order"."user_id"=$1
+GROUP BY "order"."id"
+ORDER BY "created_at" DESC;`;
   pool
     .query(queryText, [req.user.id])
     .then((result) => {

@@ -3,6 +3,7 @@ import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch } from "react-redux";
+import { Container, Button, ListGroup, Row, Col } from "react-bootstrap";
 function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
@@ -30,30 +31,52 @@ function UserPage() {
     history.push(`/productForm`);
   };
   return (
-    <div className="container">
-      <h2>Welcome, {user.username}!</h2>
+    <Container className="mt-5">
+      <h2 className="mb-4">Welcome, {user.username}!</h2>
       {user.role === "farmer" && (
-        <button onClick={addProduct}>Add Product</button>
+        <Button variant="success" onClick={addProduct} className="mb-3">
+          Add Product
+        </Button>
       )}
       <p>Your ID is: {user.id}</p>
-      <ul>
-        {myProducts?.map((product) => (
-          <li key={product.id}>
-            {product.name} {product.category} {product.price}{" "}
-            {product.description}
-            <button onClick={() => handleEdit(product.id)}> Edit</button>{" "}
-            <button
-              onClick={() => handleDelete(product.id)}
-              style={{ backgroundColor: "red", color: "white" }}
-            >
-              Remove
-            </button>
-          </li>
-        ))}
-      </ul>
 
-      <LogOutButton className="btn" />
-    </div>
+      <ListGroup>
+        {myProducts?.map((product) => (
+          <ListGroup.Item key={product.id}>
+            <Row>
+              <Col xs={8}>
+                <h5>{product.name}</h5>
+                <p>
+                  Category: {product.category} | Price: ${product.price}
+                  <br />
+                  {product.description}
+                </p>
+              </Col>
+              <Col
+                xs={4}
+                className="d-flex justify-content-end align-items-center"
+              >
+                <Button
+                  variant="primary"
+                  onClick={() => handleEdit(product.id)}
+                  className="me-2"
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={() => handleDelete(product.id)}
+                >
+                  Remove
+                </Button>
+              </Col>
+            </Row>
+          </ListGroup.Item>
+        ))}
+      </ListGroup>
+
+      <LogOutButton className="btn mt-4" />
+    </Container>
   );
 }
 

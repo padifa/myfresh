@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import ProductListItem from "../ProductListItem/ProductListItem";
+import { Button, Table, Container, Row, Col } from "react-bootstrap";
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
 // component name TemplateFunction with the name for the new component.
@@ -26,25 +27,29 @@ function ProductList(props) {
   };
 
   return (
-    <div>
-      <button onClick={goToCart}>Go To Cart</button>
-      {user.role === "farmer" && (
-        <button onClick={addProduct}>Add Product</button>
-      )}
+    <Container className="mt-5">
+      <Row className="mb-3">
+        <Col className="d-flex justify-content-between">
+          <Button variant="primary" onClick={goToCart}>
+            Go To Cart
+          </Button>
+          {user.role === "farmer" && (
+            <Button variant="success" onClick={addProduct}>
+              Add Product
+            </Button>
+          )}
+        </Col>
+      </Row>
 
       {products && products.length > 0 ? (
-        <table className="product_table">
+        <Table striped bordered hover responsive className="product_table">
           <thead>
             <tr>
-              <th>name</th>
-              <th>price</th>
+              <th>Name</th>
+              <th>Price</th>
               <th>Quantity</th>
-              <th>Image_url</th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
+              <th>Image</th>
+              <th colSpan="5">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -52,11 +57,11 @@ function ProductList(props) {
               <ProductListItem key={product.id} product={product} />
             ))}
           </tbody>
-        </table>
+        </Table>
       ) : (
         <p>No products found</p>
       )}
-    </div>
+    </Container>
   );
 }
 
