@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector } from "react-redux";
+import { Button, Row, Col, Card } from "react-bootstrap";
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -11,8 +12,6 @@ function ProductListItem({ product }) {
   // a default value of 'Functional Component'
   const [quantity, setQuantity] = useState(1);
   const user = useSelector((store) => store.user);
-  //   const viewDetails =
-  //   const store = useSelector((store) => store);
   const dispatch = useDispatch();
   const history = useHistory();
   const viewDetails = (productId) => {
@@ -22,7 +21,6 @@ function ProductListItem({ product }) {
   };
   const addToCart = (product) => {
     console.log("add item to the cart", product);
-    //dispatch to 'SET_CART' to add my product the global cart store
     //product is one product item added to the cart
     const cartItem = { ...product };
     cartItem.quantity = quantity;
@@ -49,41 +47,80 @@ function ProductListItem({ product }) {
     });
   };
 
-  //   useEffect(() => {
-  //     dispatch({
-  //       type: "SET_CART",
-  //     });
-  //   }, []);
+  const handleEdit = (productId) => {
+    history.push(`/edit/productForm/${productId}`);
+  };
 
   return (
-    <tr>
-      <td>{product.name}</td>
-      <td>{product.price}</td>
-      <td>{quantity}</td>
-      <td>{product.image_url}</td>
-      <td>
-        <button onClick={() => adjustQuantity("increase")}>+1</button>
-      </td>
-      <td>
-        <button onClick={() => adjustQuantity("decrease")}>-1</button>
-      </td>
-      <td>
-        <button onClick={() => addToCart(product)}>Add to cart</button>
-      </td>
-      <td>
-        <button onClick={() => viewDetails(product.id)}>Details</button>
-      </td>
-      <td>
-        {user.role === "farmer" && (
-          <button
-            onClick={() => handleDelete(product.id)}
-            style={{ backgroundColor: "red", color: "white" }}
-          >
-            Remove
-          </button>
-        )}
-      </td>
-    </tr>
+    <Col md={4} sm={6} xs={12} className="mb-4" key={product.id}>
+      <Card>
+        <Card.Img
+          variant="top"
+          src={product.image_url || "public/Images/apple.jpeg"}
+          alt={product.name}
+          style={{ height: "200px", objectFit: "cover" }}
+        />
+        <Card.Body>
+          <Card.Title>{product.name}</Card.Title>
+          <Card.Text>
+            <strong>Category:</strong> {product.category}
+            <br />
+            <strong>Price:</strong> ${product.price}
+            <br />
+            {product.description}
+            <br />
+            <strong>Quantity:</strong>
+            {quantity}
+          </Card.Text>
+          {user.role === "farmer" && (
+            <div className="d-flex justify-content-between">
+              <Button
+                variant="primary"
+                onClick={() => handleEdit(product.id)}
+                className="me-2"
+              >
+                Edit
+              </Button>
+              <Button variant="danger" onClick={() => handleDelete(product.id)}>
+                Remove
+              </Button>
+            </div>
+          )}
+          {user.role === "customer" && (
+            <div className="d-flex justify-content-between">
+              <Button
+                variant="primary"
+                onClick={() => adjustQuantity("increase")}
+                className="me-2"
+              >
+                +1
+              </Button>
+              <Button
+                variant="primary"
+                onClick={() => addToCart(product)}
+                className="me-2"
+              >
+                Add To Cart
+              </Button>
+              <Button
+                variant="primary"
+                onClick={() => adjustQuantity("decrease")}
+                className="me-2"
+              >
+                -1
+              </Button>
+              <Button
+                variant="primary"
+                onClick={() => viewDetails(product.id)}
+                className="me-2"
+              >
+                View Details
+              </Button>
+            </div>
+          )}
+        </Card.Body>
+      </Card>
+    </Col>
   );
 }
 

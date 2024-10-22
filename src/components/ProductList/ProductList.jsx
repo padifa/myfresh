@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import ProductListItem from "../ProductListItem/ProductListItem";
-import { Button, Table, Container, Row, Col } from "react-bootstrap";
+import { Button, Container, Row, Col, Card } from "react-bootstrap";
+
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
 // component name TemplateFunction with the name for the new component.
@@ -13,11 +14,17 @@ function ProductList(props) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+
+  const myProducts = products.filter(
+    (product) => Number(product.user_id) === Number(user.id)
+  );
+
   useEffect(() => {
     dispatch({
       type: "FETCH_PRODUCT",
     });
   }, [dispatch]);
+
   const goToCart = () => {
     history.push(`/cart`);
   };
@@ -33,15 +40,35 @@ function ProductList(props) {
           <Button variant="primary" onClick={goToCart}>
             Go To Cart
           </Button>
-          {user.role === "farmer" && (
-            <Button variant="success" onClick={addProduct}>
-              Add Product
-            </Button>
-          )}
         </Col>
       </Row>
 
-      {products && products.length > 0 ? (
+      {user.role === "farmer" ? (
+        <>
+          <Button variant="success" onClick={addProduct} className="mb-3">
+            Add Product
+          </Button>
+          <Row>
+            {myProducts?.map((product) => (
+              <ProductListItem key={product.id} product={product} />
+            ))}
+          </Row>
+        </>
+      ) : (
+        <Row>
+          {products.map((product) => (
+            <ProductListItem key={product.id} product={product} />
+          ))}
+        </Row>
+      )}
+    </Container>
+  );
+}
+
+export default ProductList;
+
+/*
+{products && products.length > 0 ? (
         <Table striped bordered hover responsive className="product_table">
           <thead>
             <tr>
@@ -61,8 +88,5 @@ function ProductList(props) {
       ) : (
         <p>No products found</p>
       )}
-    </Container>
-  );
-}
 
-export default ProductList;
+*/
