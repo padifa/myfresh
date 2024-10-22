@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function RegisterForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [role, setRole] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [farmName, setFarmName] = useState("");
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -11,10 +16,15 @@ function RegisterForm() {
     event.preventDefault();
 
     dispatch({
-      type: 'REGISTER',
+      type: "REGISTER",
       payload: {
         username: username,
         password: password,
+        phone_number: phoneNumber,
+        role: role,
+        email: email,
+        address: address,
+        farm_name: farmName,
       },
     });
   }; // end registerUser
@@ -48,6 +58,67 @@ function RegisterForm() {
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="role">
+          role:
+          <input
+            type="role"
+            name="role"
+            value={role}
+            required
+            onChange={(event) => setRole(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="phone-number">
+          Phone Number:
+          <input
+            type="phone-number"
+            name="phone-number"
+            value={phoneNumber}
+            required
+            onChange={(event) => setPhoneNumber(event.target.value)}
+          />
+        </label>
+      </div>
+
+      <div>
+        <label htmlFor="email">
+          E-mail:
+          <input
+            type="email"
+            name="email"
+            value={email}
+            required
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="address">
+          Address:
+          <input
+            type="address"
+            name="address"
+            value={address}
+            required
+            onChange={(event) => setAddress(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="farm-name">
+          Farm name:
+          <input
+            type="farm-name"
+            name="farm-name"
+            value={farmName}
+            required
+            onChange={(event) => setFarmName(event.target.value)}
           />
         </label>
       </div>
