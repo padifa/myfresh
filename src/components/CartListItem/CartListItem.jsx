@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -18,12 +18,9 @@ function CartListItem({ item }) {
       <td>{item?.name}</td>
       <td>${item?.price * item?.quantity}</td>
       <td>
-        <button
-          onClick={() => handleDelete(item?.id)}
-          style={{ backgroundColor: "red", color: "white" }}
-        >
+        <Button variant="danger" onClick={() => handleDelete(item?.id)}>
           Remove
-        </button>
+        </Button>
       </td>
     </tr>
   );

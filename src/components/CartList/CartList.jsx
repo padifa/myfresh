@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import CartListItem from "../CartListItem/CartListItem";
-
+import { Container, Table, Button } from "react-bootstrap";
 function CartList() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -45,36 +45,52 @@ function CartList() {
 
   return (
     <>
-      <div className="customer-info" style={{ backgroundColor: "#11ee52" }}>
-        <h2>Cart</h2>
-      </div>
-      <div className="cart_container">
-        <table className="cart_table">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Price x Quantity</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {cart?.map((item) => (
-              <CartListItem key={item.id} item={item} />
-            ))}
-          </tbody>
-        </table>
-        <hr />
-        <label>Total : ${totalCost}</label>
-        <br />
-        <button type="button" id="delivery" onClick={handleType}>
-          Delivery
-        </button>
-        <button type="button" id="pickup" onClick={handleType}>
-          Pickup
-        </button>
-
-        <button onClick={handleCart}>Checkout</button>
-      </div>
+      <Container>
+        <div
+          className="customer-info"
+          style={{ backgroundColor: "#11ee52", padding: "10px" }}
+        >
+          <h2>Cart</h2>
+        </div>
+        <div className="cart_container">
+          <Table striped bordered hover className="cart_table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price x Quantity</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart?.map((item) => (
+                <CartListItem key={item.id} item={item} />
+              ))}
+            </tbody>
+          </Table>
+          <hr />
+          <label>Total: ${totalCost}</label>
+          <br />
+          <Button
+            variant="primary"
+            id="delivery"
+            onClick={handleType}
+            style={{ marginRight: "10px" }}
+          >
+            Delivery
+          </Button>
+          <Button
+            variant="primary"
+            id="pickup"
+            onClick={handleType}
+            style={{ marginRight: "10px" }}
+          >
+            Pickup
+          </Button>
+          <Button variant="success" onClick={handleCart}>
+            Checkout
+          </Button>
+        </div>
+      </Container>
     </>
   );
 }

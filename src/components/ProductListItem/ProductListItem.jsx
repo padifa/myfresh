@@ -96,13 +96,7 @@ function ProductListItem({ product }) {
             >
               +1
             </Button>
-            <Button
-              variant="primary"
-              onClick={() => addToCart(product)}
-              className="me-2"
-            >
-              Add To Cart
-            </Button>
+
             <Button
               variant="primary"
               onClick={() => adjustQuantity("decrease")}
@@ -110,6 +104,15 @@ function ProductListItem({ product }) {
             >
               -1
             </Button>
+
+            <Button
+              variant="primary"
+              onClick={() => addToCart(product)}
+              className="me-2"
+            >
+              Add To Cart
+            </Button>
+
             <Button
               variant="primary"
               onClick={() => viewDetails(product.id)}
