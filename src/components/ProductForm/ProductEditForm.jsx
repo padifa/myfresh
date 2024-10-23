@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 function ProductEditForm() {
   const { id } = useParams();
   console.log("MY PRODUCT ID", id);
@@ -54,85 +55,79 @@ function ProductEditForm() {
   }, [id]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>Name</label>
-        <br />
-        <input
-          name="name"
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
-        <br />
-        <label>Price</label>
-        <br />
-        <input
-          type="text"
-          name="price"
-          placeholder="price"
-          value={price}
-          onChange={(event) => setPrice(event.target.value)}
-        />
-        <br />
-        <label>Category</label>
-        <br />
-        <input
-          type="text"
-          name="category"
-          placeholder="category"
-          required
-          value={category}
-          onChange={(event) => setCategory(event.target.value)}
-        />
-        <br />
-        <label>Description</label>
-        <br />
-        <input
-          type="text"
-          name="description"
-          placeholder="description"
-          required
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-        />
-        <br />
-        <label>Stock Quantity</label>
-        <br />
-        <input
-          type="text"
-          name="stockQuantity"
-          placeholder="Stock Quantity"
-          required
-          value={stockQuantity}
-          onChange={(event) => setStockQuantity(event.target.value)}
-        />
-        <br />
-        <label>Image Url</label>
-        <br />
-        <input
-          type="text"
-          name="imageUrl"
-          placeholder="Image Url"
-          required
-          value={imageUrl}
-          onChange={(event) => setImageUrl(event.target.value)}
-        />
-        {/* <label>Is featured</label>
-        <br />
-        <input
-          type="checkbox"
-          name="isFeatured"
-          checked={false}
-          onChange={(event) => setIsFeatured(event.target.value)}
-        />
+    <Container>
+      <Row className="justify-content-center">
+        <Col md={8}>
+          <h2 className="text-center my-4">Edit Product</h2>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formProductName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter product name"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+              />
+            </Form.Group>
 
-        */}
-        <br />
-        <button type="submit">Update Product</button>
-      </form>
-    </div>
+            <Form.Group controlId="formProductPrice">
+              <Form.Label>Price</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter price"
+                value={price}
+                onChange={(event) => setPrice(event.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formProductCategory">
+              <Form.Label>Category</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter category"
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formProductDescription">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="Enter description"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formStockQuantity">
+              <Form.Label>Stock Quantity</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter stock quantity"
+                value={stockQuantity}
+                onChange={(event) => setStockQuantity(event.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formImageUrl">
+              <Form.Label>Image URL</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter image URL"
+                value={imageUrl}
+                onChange={(event) => setImageUrl(event.target.value)}
+              />
+            </Form.Group>
+
+            <Button variant="primary" type="submit" className="mt-3">
+              Update Product
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 export default ProductEditForm;
