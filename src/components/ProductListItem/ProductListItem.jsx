@@ -62,6 +62,7 @@ function ProductListItem({ product }) {
         />
         <Card.Body>
           <Card.Title>{product.name}</Card.Title>
+          <Card.Subtitle>From {product.farm}</Card.Subtitle>
           <Card.Text>
             <strong>Category:</strong> {product.category}
             <br />
@@ -72,7 +73,7 @@ function ProductListItem({ product }) {
             <strong>Quantity:</strong>
             {quantity}
           </Card.Text>
-          {user.role === "farmer" && (
+          {/* {user.role.toLowerCase() === "farmer" && (
             <div className="d-flex justify-content-between">
               <Button
                 variant="primary"
@@ -85,39 +86,38 @@ function ProductListItem({ product }) {
                 Remove
               </Button>
             </div>
-          )}
-          {user.role === "customer" && (
-            <div className="d-flex justify-content-between">
-              <Button
-                variant="primary"
-                onClick={() => adjustQuantity("increase")}
-                className="me-2"
-              >
-                +1
-              </Button>
-              <Button
-                variant="primary"
-                onClick={() => addToCart(product)}
-                className="me-2"
-              >
-                Add To Cart
-              </Button>
-              <Button
-                variant="primary"
-                onClick={() => adjustQuantity("decrease")}
-                className="me-2"
-              >
-                -1
-              </Button>
-              <Button
-                variant="primary"
-                onClick={() => viewDetails(product.id)}
-                className="me-2"
-              >
-                View Details
-              </Button>
-            </div>
-          )}
+          )} */}
+
+          <div className="d-flex justify-content-between">
+            <Button
+              variant="primary"
+              onClick={() => adjustQuantity("increase")}
+              className="me-2"
+            >
+              +1
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => addToCart(product)}
+              className="me-2"
+            >
+              Add To Cart
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => adjustQuantity("decrease")}
+              className="me-2"
+            >
+              -1
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => viewDetails(product.id)}
+              className="me-2"
+            >
+              View Details
+            </Button>
+          </div>
         </Card.Body>
       </Card>
     </Col>

@@ -31,8 +31,8 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const { name, description, price, stock_quantity, image_url, category } =
     req.body;
   const queryText = `
-    INSERT INTO "product" ("name", "description", "price", "stock_quantity", "image_url", "category", "user_id")
-    VALUES ($1, $2, $3, $4, $5, $6, $7 ) RETURNING id;`;
+    INSERT INTO "product" ("name", "description", "price", "stock_quantity", "image_url", "category", "user_id", "farm")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8 ) RETURNING id;`;
   pool
     .query(queryText, [
       name,
@@ -42,6 +42,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       image_url,
       category,
       req.user.id,
+      req.user.farm_name,
     ])
     .then((result) => {
       console.log("created a new product");
@@ -56,9 +57,16 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 //Update a product?
 router.put("/:productId", rejectUnauthenticated, (req, res) => {
   let productId = req.params.productId;
-  const { name, description, price, stock_quantity, image_url, category } =
-    req.body;
-  const sqlText = `UPDATE "product" SET "name"=$1, "description"=$2, "price"=$3, "stock_quantity"=$4, "image_url"=$5, "category"=$6 WHERE "id"=$7; `;
+  const {
+    name,
+    description,
+    price,
+    stock_quantity,
+    image_url,
+    category,
+    farm,
+  } = req.body;
+  const sqlText = `UPDATE "product" SET "name"=$1, "description"=$2, "price"=$3, "stock_quantity"=$4, "image_url"=$5, "category"=$6, "farm"=$7 WHERE "id"=$8; `;
   pool
     .query(sqlText, [
       name,
@@ -67,6 +75,7 @@ router.put("/:productId", rejectUnauthenticated, (req, res) => {
       Number(stock_quantity),
       image_url,
       category,
+      farm,
       productId,
     ])
     .then((result) => {

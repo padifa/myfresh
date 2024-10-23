@@ -37,7 +37,7 @@ function ProductDetails(props) {
 
   return (
     <div style={{ backgroundColor: "#11ee52" }}>
-      {user.role === "farmer" && (
+      {user.role.toLowerCase() === "farmer" && (
         <div>
           <button onClick={() => handleEdit(product.id)}> Edit</button>{" "}
           <button

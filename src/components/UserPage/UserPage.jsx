@@ -36,7 +36,7 @@ function UserPage() {
     <Container className="mt-5">
       <h2 className="mb-4">Welcome, {user.username}!</h2>
 
-      {user.role === "farmer" ? (
+      {user.role.toLowerCase() === "farmer" ? (
         <>
           <Button variant="success" onClick={addProduct} className="mb-3">
             Add Product

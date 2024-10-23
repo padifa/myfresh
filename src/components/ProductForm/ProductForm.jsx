@@ -11,9 +11,6 @@ function ProductForm() {
   const [description, setDescription] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  // const [isFeatured, setIsFeatured] = useState("false");
-  // const [type, setType] = useState("");
-  //   const product = useSelector((store) => store.product);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,23 +20,20 @@ function ProductForm() {
       category,
       description,
       stock_quantity: stockQuantity,
-      // isFeatured,
+
       image_url: imageUrl,
     };
     console.log("the new product", newProduct);
     dispatch({ type: "ADD_PRODUCT", payload: newProduct });
     history.push("/product");
   };
-  // const handleType = (event) => {
-  //   console.log("type selection", event.target.id);
-  //   setType(event.target.id);
-  // };
+
   return (
     <Container className="mt-5">
       <h2 className="text-center mb-4">Add New Product</h2>
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
-          <Form.Group as={Col} controlId="formProductName">
+          <Form.Group controlId="formProductName">
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
@@ -50,7 +44,7 @@ function ProductForm() {
             />
           </Form.Group>
 
-          <Form.Group as={Col} controlId="formProductPrice">
+          <Form.Group controlId="formProductPrice">
             <Form.Label>Price</Form.Label>
             <Form.Control
               type="text"
@@ -63,7 +57,7 @@ function ProductForm() {
         </Row>
 
         <Row className="mb-3">
-          <Form.Group as={Col} controlId="formProductCategory">
+          <Form.Group controlId="formProductCategory">
             <Form.Label>Category</Form.Label>
             <Form.Control
               type="text"
@@ -74,7 +68,7 @@ function ProductForm() {
             />
           </Form.Group>
 
-          <Form.Group as={Col} controlId="formProductStock">
+          <Form.Group controlId="formProductStock">
             <Form.Label>Stock Quantity</Form.Label>
             <Form.Control
               type="text"

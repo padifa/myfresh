@@ -117,7 +117,7 @@ function RegisterForm() {
             type="farm-name"
             name="farm-name"
             value={farmName}
-            required
+            placeholder="Only for farmers"
             onChange={(event) => setFarmName(event.target.value)}
           />
         </label>

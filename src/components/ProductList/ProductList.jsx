@@ -43,7 +43,28 @@ function ProductList(props) {
         </Col>
       </Row>
 
-      {user.role === "farmer" ? (
+      <Row>
+        {products.map((product) => (
+          <ProductListItem key={product.id} product={product} />
+        ))}
+      </Row>
+    </Container>
+  );
+}
+
+export default ProductList;
+
+/*
+ <Container className="mt-5">
+      <Row className="mb-3">
+        <Col className="d-flex justify-content-between">
+          <Button variant="primary" onClick={goToCart}>
+            Go To Cart
+          </Button>
+        </Col>
+      </Row>
+
+      {user.role.toLowerCase() === "farmer" ? (
         <>
           <Button variant="success" onClick={addProduct} className="mb-3">
             Add Product
@@ -62,31 +83,4 @@ function ProductList(props) {
         </Row>
       )}
     </Container>
-  );
-}
-
-export default ProductList;
-
-/*
-{products && products.length > 0 ? (
-        <Table striped bordered hover responsive className="product_table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Image</th>
-              <th colSpan="5">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <ProductListItem key={product.id} product={product} />
-            ))}
-          </tbody>
-        </Table>
-      ) : (
-        <p>No products found</p>
-      )}
-
 */
