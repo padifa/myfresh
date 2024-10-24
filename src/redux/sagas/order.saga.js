@@ -20,9 +20,19 @@ function* addOrder(action) {
   }
 }
 
+function* orderPay(action) {
+  //orderId needs to be the action.payload
+  try {
+    yield axios.put(`/api/order/pay/${action.payload}`);
+    yield put({ type: "FETCH_ORDER" });
+  } catch (error) {
+    console.log("Update order Receipt failed", error);
+  }
+}
 function* orderSaga() {
   yield takeLatest("FETCH_ORDER", fetchOrder);
   yield takeLatest("ADD_ORDER", addOrder);
+  yield takeLatest("PAYMENT", orderPay);
 }
 
 export default orderSaga;

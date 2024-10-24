@@ -57,7 +57,9 @@ function CartList() {
             <thead>
               <tr>
                 <th>Product</th>
-                <th>Price x Quantity</th>
+                <th>Unit Price </th>
+                <th>Quantity</th>
+                <th>Total Price</th>
                 <th></th>
               </tr>
             </thead>

@@ -91,6 +91,7 @@ function ProductListItem({ product }) {
           <div className="d-flex justify-content-between">
             <Button
               variant="primary"
+              size="sm"
               onClick={() => adjustQuantity("increase")}
               className="me-2"
             >
@@ -99,6 +100,7 @@ function ProductListItem({ product }) {
 
             <Button
               variant="primary"
+              size="sm"
               onClick={() => adjustQuantity("decrease")}
               className="me-2"
             >
@@ -107,6 +109,7 @@ function ProductListItem({ product }) {
 
             <Button
               variant="primary"
+              size="sm"
               onClick={() => addToCart(product)}
               className="me-2"
             >
@@ -115,6 +118,7 @@ function ProductListItem({ product }) {
 
             <Button
               variant="primary"
+              size="sm"
               onClick={() => viewDetails(product.id)}
               className="me-2"
             >

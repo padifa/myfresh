@@ -15,12 +15,16 @@ function OrderPage(props) {
       type: "FETCH_ORDER",
     });
   }, []);
-  return (
-    <div>
-      <h2>Order Page</h2>
 
-      <OrderList orders={orders} />
-    </div>
+  return (
+    <>
+      <div>
+        <h2>Order Page</h2>
+
+        <OrderList orders={orders} />
+      </div>
+      <div></div>
+    </>
   );
 }
 
