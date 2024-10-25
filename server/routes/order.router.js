@@ -11,7 +11,7 @@ const router = express.Router();
 router.get("/", rejectUnauthenticated, (req, res) => {
   // GET route code here
   const queryText = `
-  SELECT "order"."id" AS "orderId", "order"."status", "order"."total_amount", "order"."created_at", json_agg(
+  SELECT "order"."id" AS "orderId", "order"."status", "order"."option", "order"."total_amount", "order"."created_at", json_agg(
         json_build_object(
             'itemId', "order_item"."id",
             'quantity', "order_item"."quantity",

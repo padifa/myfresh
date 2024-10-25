@@ -40,16 +40,16 @@ function ProductListItem({ product }) {
       setQuantity(1);
     }
   };
-  const handleDelete = (productId) => {
-    dispatch({
-      type: "DELETE_PRODUCT",
-      payload: productId,
-    });
-  };
+  // const handleDelete = (productId) => {
+  //   dispatch({
+  //     type: "DELETE_PRODUCT",
+  //     payload: productId,
+  //   });
+  // };
 
-  const handleEdit = (productId) => {
-    history.push(`/edit/productForm/${productId}`);
-  };
+  // const handleEdit = (productId) => {
+  //   history.push(`/edit/productForm/${productId}`);
+  // };
 
   return (
     <Col md={4} sm={6} xs={12} className="mb-4" key={product.id}>
@@ -70,27 +70,12 @@ function ProductListItem({ product }) {
             <br />
             {product.description}
             <br />
-            <strong>Quantity:</strong>
-            {quantity}
+            <strong>Quantity:</strong> {quantity}
           </Card.Text>
-          {/* {user.role.toLowerCase() === "farmer" && (
-            <div className="d-flex justify-content-between">
-              <Button
-                variant="primary"
-                onClick={() => handleEdit(product.id)}
-                className="me-2"
-              >
-                Edit
-              </Button>
-              <Button variant="danger" onClick={() => handleDelete(product.id)}>
-                Remove
-              </Button>
-            </div>
-          )} */}
 
           <div className="d-flex justify-content-between">
             <Button
-              variant="primary"
+              variant="success"
               size="sm"
               onClick={() => adjustQuantity("increase")}
               className="me-2"
@@ -99,7 +84,7 @@ function ProductListItem({ product }) {
             </Button>
 
             <Button
-              variant="primary"
+              variant="secondary"
               size="sm"
               onClick={() => adjustQuantity("decrease")}
               className="me-2"
@@ -108,7 +93,7 @@ function ProductListItem({ product }) {
             </Button>
 
             <Button
-              variant="primary"
+              variant="success"
               size="sm"
               onClick={() => addToCart(product)}
               className="me-2"
@@ -117,7 +102,7 @@ function ProductListItem({ product }) {
             </Button>
 
             <Button
-              variant="primary"
+              variant="secondary"
               size="sm"
               onClick={() => viewDetails(product.id)}
               className="me-2"
@@ -132,3 +117,20 @@ function ProductListItem({ product }) {
 }
 
 export default ProductListItem;
+
+{
+  /* {user.role.toLowerCase() === "farmer" && (
+            <div className="d-flex justify-content-between">
+              <Button
+                variant="primary"
+                onClick={() => handleEdit(product.id)}
+                className="me-2"
+              >
+                Edit
+              </Button>
+              <Button variant="danger" onClick={() => handleDelete(product.id)}>
+                Remove
+              </Button>
+            </div>
+          )} */
+}

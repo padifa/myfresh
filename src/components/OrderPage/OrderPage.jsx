@@ -15,6 +15,9 @@ function OrderPage(props) {
       type: "FETCH_ORDER",
     });
   }, []);
+  // const handlePay = () => {
+  //   history.push("/products");
+  // };
 
   return (
     <>

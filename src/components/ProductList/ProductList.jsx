@@ -37,7 +37,7 @@ function ProductList(props) {
     <Container className="mt-5">
       <Row className="mb-3">
         <Col className="d-flex justify-content-between">
-          <Button variant="primary" onClick={goToCart}>
+          <Button variant="success" onClick={goToCart}>
             Go To Cart
           </Button>
         </Col>

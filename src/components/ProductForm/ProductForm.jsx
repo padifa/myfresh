@@ -104,7 +104,7 @@ function ProductForm() {
         </Form.Group>
 
         <div className="d-flex justify-content-center">
-          <Button variant="primary" type="submit">
+          <Button variant="success" type="submit">
             Add New Product
           </Button>
         </div>

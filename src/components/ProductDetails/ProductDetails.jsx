@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { Card } from "react-bootstrap";
+import { Card, Container, Col, Row, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 
 function ProductDetails(props) {
@@ -36,47 +36,57 @@ function ProductDetails(props) {
   };
 
   return (
-    <div style={{ backgroundColor: "#11ee52" }}>
-      {user.role.toLowerCase() === "farmer" && (
-        <div>
-          <button onClick={() => handleEdit(product.id)}> Edit</button>{" "}
-          <button
-            onClick={() => handleDelete(product.id)}
-            style={{ backgroundColor: "red", color: "white" }}
-          >
-            Remove
-          </button>
-        </div>
-      )}
+    <div className="bg-white" style={{ padding: "20px" }}>
+      <Container>
+        {user.role.toLowerCase() === "farmer" && (
+          <div className="mb-3">
+            <Button variant="secondary" onClick={() => handleEdit(product.id)}>
+              Edit
+            </Button>{" "}
+            <Button variant="danger" onClick={() => handleDelete(product.id)}>
+              Remove
+            </Button>
+          </div>
+        )}
 
-      {product?.id ? (
-        <>
-          <h1>{product?.name}</h1>
-          <img src={product?.poster} alt={product?.name} />
-          <Card
-            className="shadow-sm mb-4"
-            style={{ backgroundColor: "#fff3cd" }}
-          >
-            <Card.Body className="d-flex flex-column justify-content-between">
-              <Card.Text
-                className="lead text-dark"
-                style={{ fontSize: "1.1rem", lineHeight: "1.5" }}
-              >
-                {product?.description}
-                {product?.category}
-                {product?.stock_quantity}
-
-                {product?.created_at}
-                {product?.updated_at}
-              </Card.Text>
-            </Card.Body>
-          </Card>
-
-          <div className="text-center"></div>
-        </>
-      ) : (
-        <p>Product not found</p>
-      )}
+        {product?.id ? (
+          <>
+            <Row className="justify-content-center mb-4">
+              <Col xs={12} md={8}>
+                <h1 className="text-center">{product.name}</h1>
+                <img
+                  src={product.image_url}
+                  alt={product.name}
+                  className="img-fluid mb-4"
+                />
+                <Card
+                  className="shadow-sm mb-4"
+                  style={{ backgroundColor: "#fff3cd" }}
+                >
+                  <Card.Body className="d-flex flex-column justify-content-between">
+                    <Card.Text
+                      className="lead text-dark"
+                      style={{ fontSize: "1.1rem", lineHeight: "1.5" }}
+                    >
+                      {product.description}
+                      <br />
+                      <strong>Category:</strong> {product.category}
+                      <br />
+                      <strong>Stock Quantity:</strong> {product.stock_quantity}
+                      <br />
+                      <strong>Created At:</strong> {product.created_at}
+                      <br />
+                      <strong>Updated At:</strong> {product.updated_at}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </>
+        ) : (
+          <p className="text-center">Product not found</p>
+        )}
+      </Container>
     </div>
   );
 }

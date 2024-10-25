@@ -7,26 +7,28 @@ function LoginPage() {
   const history = useHistory();
 
   return (
-    <Container className="mt-5">
-      <Row className="justify-content-center">
-        <Col xs={12} md={6}>
-          <LoginForm />
-        </Col>
-      </Row>
-      <Row className="justify-content-center mt-3">
-        <Col xs="auto">
-          <Button
-            variant="link"
-            onClick={() => {
-              history.push("/registration");
-            }}
-            className="text-decoration-none"
-          >
-            Register
-          </Button>
-        </Col>
-      </Row>
-    </Container>
+    <div className="login-form-container">
+      <Container className="mt-5">
+        <Row className="justify-content-center">
+          <Col xs={12} md={6}>
+            <LoginForm />
+          </Col>
+        </Row>
+        <Row className="justify-content-center mt-3">
+          <Col xs="auto">
+            <Button
+              variant="link"
+              onClick={() => {
+                history.push("/registration");
+              }}
+              className="register-link"
+            >
+              Register
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }
 

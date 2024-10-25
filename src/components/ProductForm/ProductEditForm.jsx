@@ -137,7 +137,7 @@ function ProductEditForm() {
           />
         </Form.Group>
         <div className="d-flex justify-content-center">
-          <Button variant="primary" type="submit" className="mt-3">
+          <Button variant="success" type="submit" className="mt-3">
             Update Product
           </Button>
         </div>

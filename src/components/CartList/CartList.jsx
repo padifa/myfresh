@@ -48,7 +48,7 @@ function CartList() {
       <Container>
         <div
           className="customer-info"
-          style={{ backgroundColor: "#11ee52", padding: "10px" }}
+          style={{ backgroundColor: "success", padding: "10px" }}
         >
           <h2>Cart</h2>
         </div>
@@ -73,7 +73,7 @@ function CartList() {
           <label>Total: ${totalCost}</label>
           <br />
           <Button
-            variant="primary"
+            variant="success"
             id="delivery"
             onClick={handleType}
             style={{ marginRight: "10px" }}
@@ -81,7 +81,7 @@ function CartList() {
             Delivery
           </Button>
           <Button
-            variant="primary"
+            variant="secondary"
             id="pickup"
             onClick={handleType}
             style={{ marginRight: "10px" }}
@@ -89,7 +89,7 @@ function CartList() {
             Pickup
           </Button>
           <Button variant="success" onClick={handleCart}>
-            Checkout
+            Place Order
           </Button>
         </div>
       </Container>
