@@ -14,7 +14,7 @@ function MyNav() {
         {/* Logo on the left */}
         <Navbar.Brand as={Link} to="/home">
           <img
-            src="/Images/favicon.ico"
+            src="/Images/MyFreshNew.png"
             alt="MyFresh logo"
             style={{ width: "150px", height: "auto" }} // Adjust size as needed
           />

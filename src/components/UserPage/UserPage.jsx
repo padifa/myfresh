@@ -78,7 +78,7 @@ function UserPage() {
         ))}
       </Row>
 
-      <LogOutButton className="btn mt-4" />
+      {/* <LogOutButton className="btn mt-4" /> */}
     </Container>
   );
 }
