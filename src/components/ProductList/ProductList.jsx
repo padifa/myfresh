@@ -14,6 +14,7 @@ function ProductList(props) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const cart = useSelector((store) => store.cart);
 
   const myProducts = products.filter(
     (product) => Number(product.user_id) === Number(user.id)
@@ -34,21 +35,27 @@ function ProductList(props) {
   };
 
   return (
-    <Container className="mt-5">
-      <Row className="mb-3">
-        <Col className="d-flex justify-content-between">
-          <Button variant="success" onClick={goToCart}>
-            Go To Cart
-          </Button>
-        </Col>
-      </Row>
+    <>
+      <h2 className="text-center mt-4">
+        <strong>{user.username},</strong>
+      </h2>
+      <Container className="mt-5">
+        <Row className="mb-3">
+          <Col className="d-flex justify-content-between">
+            <Button variant="success" onClick={goToCart}>
+              Go To Cart
+            </Button>
+            <div>{cart?.length > 0 && <h1>Cart:{cart?.length}</h1>}</div>
+          </Col>
+        </Row>
 
-      <Row>
-        {products.map((product) => (
-          <ProductListItem key={product.id} product={product} />
-        ))}
-      </Row>
-    </Container>
+        <Row>
+          {products.map((product) => (
+            <ProductListItem key={product.id} product={product} />
+          ))}
+        </Row>
+      </Container>
+    </>
   );
 }
 

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 // import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 
-import { Container, Table, Card } from "react-bootstrap";
+import { Container, Table, Card, Button } from "react-bootstrap";
 // import ReceiptListItem from "./ReceiptListItem";
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -14,21 +14,22 @@ function ReceiptPage() {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const { orderId } = useParams();
-  const { itemId } = useParams();
+
   const orders = useSelector((store) => store.order);
-  const products = useSelector((store) => store.product);
+
   const order = orders.find(
     (order) => Number(order.orderId) === Number(orderId)
   );
+
   console.log("Order", order);
-  const item = products.find((item) => Number(item.itemId) === Number(itemId));
   console.log("my receipt for order:", orderId);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({
       type: "FETCH_ORDER",
     });
-  }, []);
+  }, [dispatch]);
   //   const totalCost = cart
   //     .reduce(
   //       (total, product) =>
@@ -63,14 +64,14 @@ function ReceiptPage() {
     <>
       <Container style={{ marginTop: "2rem" }}>
         <Card className="text-center">
-          <Card.Header as="h1">Order: {orderId}</Card.Header>
+          <Card.Header as="h1">Order: #{orderId}</Card.Header>
           <Card.Body>
             <Card.Title>Here is your receipt</Card.Title>
-            <Table striped bordered hover>
+            <Table striped bordered hover responsive>
               <thead>
                 <tr>
                   <th>Products</th>
-                  <th> Quantity</th>
+                  <th>Quantity</th>
                   <th>Unit price</th>
                   <th>Option</th>
                   <th>Date</th>
@@ -80,23 +81,29 @@ function ReceiptPage() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    {order?.products.map((o, index) => (
-                      <p key={index}>{o.productName}</p>
-                    ))}
-                  </td>
-                  <td>{order?.option}</td>
-                  <td>{item?.unit_price}</td>
-                  <td>{item?.quantity}</td>
-                  <td>{new Date(order?.created_at).toLocaleDateString()}</td>
-                  <td>${order?.total_amount}</td>
-                  <td>{order?.status}</td>
-                </tr>
+                {order?.products.map((product, index) => (
+                  <tr key={index}>
+                    <td>{product?.productName}</td>
+                    <td>{product?.quantity}</td>
+                    <td>{product?.price}</td>
+                    <td>{order?.option}</td>
+
+                    <td>{new Date(order?.created_at).toLocaleDateString()}</td>
+                    <td>${order?.total_amount}</td>
+                    <td>{order?.status}</td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </Card.Body>
         </Card>
+      </Container>
+      <Container style={{ marginTop: "2rem" }}>
+        <Link to="/order" className="d-inline-block mt-3">
+          <Button variant="success" type="button" className="mt-3">
+            Back
+          </Button>
+        </Link>
       </Container>
     </>
     //   /* <td> */</td>

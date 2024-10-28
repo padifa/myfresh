@@ -33,7 +33,7 @@ function OrderListItem({ order }) {
       <td>{moment(order.created_at).calendar()}</td>
       <td>{order.option}</td>
       <td>
-        <Button variant="secondary" onClick={handleShowProducts}>
+        <Button variant="success" onClick={handleShowProducts}>
           {showProduct ? "Hide Products" : "View Products"}
         </Button>
       </td>

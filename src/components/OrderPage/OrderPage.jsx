@@ -9,6 +9,7 @@ function OrderPage(props) {
   // a default value of 'Functional Component'
   const orders = useSelector((store) => store.order);
   const [order, setOrder] = useState("All the orders");
+  const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({
@@ -21,9 +22,18 @@ function OrderPage(props) {
 
   return (
     <>
-      <div>
-        <h2>Order Page</h2>
+      <h3 className="text-center mt-4">
+        <strong>{user.username},</strong>
+        <p>
+          <span>
+            {" "}
+            Here’s your order history. Feel free to review and manage your
+            orders!
+          </span>
+        </p>
+      </h3>
 
+      <div>
         <OrderList orders={orders} />
       </div>
       <div></div>

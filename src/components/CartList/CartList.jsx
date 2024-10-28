@@ -7,6 +7,7 @@ function CartList() {
   const dispatch = useDispatch();
   const history = useHistory();
   const cart = useSelector((store) => store.cart);
+  const user = useSelector((store) => store.user);
   console.log("items in my cart", cart);
 
   const [type, setType] = useState("");
@@ -45,6 +46,7 @@ function CartList() {
 
   return (
     <>
+      {user.username}
       <Container>
         <div
           className="customer-info"
@@ -70,8 +72,7 @@ function CartList() {
             </tbody>
           </Table>
           <hr />
-          <label>Total: ${totalCost}</label>
-          <br />
+
           <Button
             variant="success"
             id="delivery"
@@ -91,6 +92,10 @@ function CartList() {
           <Button variant="success" onClick={handleCart}>
             Place Order
           </Button>
+          <label style={{ marginLeft: "27em" }}>
+            <h2>Total: ${totalCost}</h2>
+          </label>
+          <br />
         </div>
       </Container>
     </>

@@ -38,12 +38,16 @@ function MyNav() {
                 <Nav.Link as={Link} to="/order">
                   Orders
                 </Nav.Link>
-                <NavDropdown title="Log Out" id="basic-nav-dropdown">
+                <Nav.Link
+                  className="success"
+                  title="Log Out"
+                  id="basic-nav-dropdown"
+                >
                   {/* <NavDropdown.Item as={Link} to="/profile"></NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item> */}
                   <LogOutButton />
-                </NavDropdown>
+                </Nav.Link>
               </>
             )}
             <Nav.Link as={Link} to="/about">
