@@ -77,21 +77,19 @@ Open in Browser The app should now be running on http://localhost:5173/.
 # Usage
 
 **Customers**
-Browse products by category or search.
-Add items to the cart and proceed to checkout.
-View order history in their profile.
+
+- Browse products by category or search.
+
+- Add items to the cart and proceed to checkout.
+
+- View order history in their profile.
+
 **Farmers**
-Add new products to the platform.
-Manage orders and track fulfillment status.
 
-Contributing
-Fork the repository
-Create a feature branch: git checkout -b feature-branch-name
-Commit changes: git commit -m 'Add feature'
-Push to the branch: git push origin feature-branch-name
-Open a Pull Request
-License
-This project is licensed under the MIT License.
+- Add new products to the platform.
 
-Author
+- Manage orders and track fulfillment status.
+
+**Author**
+
 Developed by Papa Dienou Faye. For inquiries, reach out at padifa7@live.fr.
