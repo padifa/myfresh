@@ -65,7 +65,9 @@ DATABASE_URL=<myfresh.sql>
 npm run server
 
 3. **Install frontend dependencies**
+
    npm install
+
    npm run client
 
 # In the client directory
