@@ -41,7 +41,7 @@ MyFresh is an organic produce e-commerce application developed to connect local 
 ## Installation
 
 1. **Clone the Repository**
-   git clone https://github.com/yourusername/myfresh.git
+   git clone https://github.com/padifa/myfresh
    cd myfresh
 2. **Install Dependencies Install backend dependencies**
    npm install
@@ -62,13 +62,15 @@ DATABASE_URL=<myfresh.sql>
 
 # In the project root directory
 
-npm run server 3. **Install frontend dependencies**
-npm install
-npm run client
+npm run server
+
+3. **Install frontend dependencies**
+   npm install
+   npm run client
 
 # In the client directory
 
-Open in Browser The app should now be running on http://localhost:3000.
+Open in Browser The app should now be running on http://localhost:5173/.
 
 # Usage
 
