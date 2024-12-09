@@ -5,7 +5,7 @@ import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import RegisterForm from "../RegisterForm/RegisterForm";
 
 function LandingPage() {
-  const [heading, setHeading] = useState("Welcome");
+  // const [heading, setHeading] = useState("Welcome");
   const history = useHistory();
 
   const onLogin = () => {
