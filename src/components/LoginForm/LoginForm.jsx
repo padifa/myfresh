@@ -25,8 +25,6 @@ function LoginForm() {
   }; // end login
   return (
     <Container className="mt-5">
-      {/* <Row className="justify-content-center">
-        <Col xs={12} md={6} className="text-center"> */}
       <Form className="formPanel" onSubmit={login}>
         <h2>Login</h2>
         {errors.loginMessage && (
@@ -58,8 +56,6 @@ function LoginForm() {
           Log In
         </Button>
       </Form>
-      {/* </Col>
-      </Row> */}
     </Container>
   );
 }
