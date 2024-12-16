@@ -1,19 +1,21 @@
 import React from "react";
 import { Container, Row, Col, Card, ListGroup } from "react-bootstrap";
 
-// This is one of our simplest components
-// It doesn't have local state,
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is'
+// The AboutPage component is a functional component that displays information
+// about the "MyFresh" platform. It is purely presentational and does not interact
+// with Redux state, local state, or any external APIs.
 
 function AboutPage() {
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
+        {/* Center the content on the page */}
         <Col xs={12} md={10}>
           <Card className="shadow-lg p-4">
             <Card.Body>
+              {/* Main heading for the page */}
               <h1 className="mb-4">About MyFresh</h1>
+              {/* Paragraph describing the MyFresh platform */}
               <p>
                 Welcome to MyFresh, your go-to online marketplace for the
                 freshest and healthiest organic produce in Fargo, North Dakota.
@@ -31,8 +33,10 @@ function AboutPage() {
                 price for their hard work.
               </p>
 
+              {/* Subsection highlighting the platform's benefits */}
               <h3 className="mt-4">Why Choose MyFresh?</h3>
               <ListGroup className="mb-4">
+                {/* Each item highlights a unique benefit of the platform */}
                 <ListGroup.Item>
                   <h4>Farm-to-Table:</h4> We prioritize freshness by partnering
                   directly with local farmers, meaning your produce is harvested
@@ -54,6 +58,7 @@ function AboutPage() {
                 </ListGroup.Item>
               </ListGroup>
 
+              {/* Section introducing the founder */}
               <h3>Meet Our Founder: Papa Dienou Faye</h3>
               <p>
                 Dienou Faye, the founder of MyFresh, has a passion for both
@@ -73,3 +78,9 @@ function AboutPage() {
 }
 
 export default AboutPage;
+
+// Comments Summary:
+// - The component uses Bootstrap for layout and styling.
+// - It includes static content about the MyFresh platform, its mission, and its founder.
+// - The design emphasizes readability and a clean layout using React-Bootstrap components.
+// - No dynamic content or interactions are present, making it a purely presentational component.
