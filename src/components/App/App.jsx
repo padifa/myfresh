@@ -1,44 +1,45 @@
 import React, { useEffect } from "react";
 import {
-  HashRouter as Router,
-  Redirect,
-  Route,
-  Switch,
+  HashRouter as Router, // Router to handle navigation with hash-based URLs
+  Redirect, // Redirect to different routes
+  Route, // Define specific routes
+  Switch, // Render the first matching route
 } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"; // Hooks for Redux state management
 
-import MyNav from "../MyNav/MyNav";
-import Footer from "../Footer/Footer";
+import MyNav from "../MyNav/MyNav"; // Custom navigation bar component
+import Footer from "../Footer/Footer"; // Footer component
 
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"; // Custom route component for authenticated users
 
-import AboutPage from "../AboutPage/AboutPage";
-import UserPage from "../UserPage/UserPage";
-import InfoPage from "../InfoPage/InfoPage";
-import LandingPage from "../LandingPage/LandingPage";
-import LoginPage from "../LoginPage/LoginPage";
-import RegisterPage from "../RegisterPage/RegisterPage";
+import AboutPage from "../AboutPage/AboutPage"; // About page component
+import UserPage from "../UserPage/UserPage"; // User dashboard component
+import InfoPage from "../InfoPage/InfoPage"; // Info page component
+import LandingPage from "../LandingPage/LandingPage"; // Landing page for unauthenticated users
+import LoginPage from "../LoginPage/LoginPage"; // Login page component
+import RegisterPage from "../RegisterPage/RegisterPage"; // Registration page component
 
-import OrderPage from "../OrderPage/OrderPage";
-import "./App.css";
-import ProductList from "../ProductList/ProductList";
-import ProductDetails from "../ProductDetails/ProductDetails";
-import ProductForm from "../ProductForm/ProductForm";
-import CartList from "../CartList/CartList";
-import ProductEditForm from "../ProductForm/ProductEditForm";
-import ReceiptPage from "../ReceiptPage/ReceiptPage";
-import "bootstrap/dist/css/bootstrap.min.css";
+import OrderPage from "../OrderPage/OrderPage"; // Order page component
+import "./App.css"; // App-specific styles
+import ProductList from "../ProductList/ProductList"; // Component to display the list of products
+import ProductDetails from "../ProductDetails/ProductDetails"; // Component to show product details
+import ProductForm from "../ProductForm/ProductForm"; // Form to add new products
+import CartList from "../CartList/CartList"; // Component to show cart items
+import ProductEditForm from "../ProductForm/ProductEditForm"; // Form to edit existing products
+import ReceiptPage from "../ReceiptPage/ReceiptPage"; // Component to show the receipt
+import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap for styling
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // Hook to dispatch Redux actions
+  const user = useSelector((store) => store.user); // Select user data from Redux store
 
-  const user = useSelector((store) => store.user);
-
+  // Fetch user data when the component mounts
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
   }, [dispatch]);
 
+  // Fetch product data when the component mounts
   useEffect(() => {
     dispatch({ type: "FETCH_PRODUCT" });
   }, [dispatch]);
@@ -46,7 +47,7 @@ function App() {
   return (
     <Router>
       <div>
-        <MyNav />
+        <MyNav /> {/* Navigation bar */}
         <Switch>
           {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
           <Redirect exact from="/" to="/home" />
@@ -80,33 +81,42 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
+          {/* Route to display the product list */}
           <ProtectedRoute exact path="/product">
             <ProductList />
           </ProtectedRoute>
 
+          {/* Route to display details of a specific product */}
           <ProtectedRoute exact path="/details/:id">
             <ProductDetails />
           </ProtectedRoute>
 
+          {/* Route to display the order page */}
           <ProtectedRoute exact path="/order">
             <OrderPage />
           </ProtectedRoute>
 
+          {/* Route to display the form for adding new products */}
           <ProtectedRoute exact path="/productForm">
             <ProductForm />
           </ProtectedRoute>
 
+          {/* Route to display the form for editing an existing product */}
           <ProtectedRoute exact path="/edit/productForm/:id">
             <ProductEditForm />
           </ProtectedRoute>
 
+          {/* Route to display the cart */}
           <ProtectedRoute exact path="/cart">
             <CartList />
           </ProtectedRoute>
+
+          {/* Route to display the receipt page */}
           <ProtectedRoute exact path="/receipt-page/:orderId">
             <ReceiptPage />
           </ProtectedRoute>
 
+          {/* Route to display the login page */}
           <Route exact path="/login">
             {user.id ? (
               // If the user is already logged in,
@@ -118,6 +128,7 @@ function App() {
             )}
           </Route>
 
+          {/* Route to display the registration page */}
           <Route exact path="/registration">
             {user.id ? (
               // If the user is already logged in,
@@ -129,6 +140,7 @@ function App() {
             )}
           </Route>
 
+          {/* Route to display the landing page */}
           <Route exact path="/home">
             {user.id ? (
               // If the user is already logged in,
@@ -142,13 +154,22 @@ function App() {
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
-            <h1>404</h1>
+            <h1>404</h1> {/* Page not found */}
           </Route>
         </Switch>
-        <Footer />
+        <Footer /> {/* Footer component */}
       </div>
     </Router>
   );
 }
 
 export default App;
+
+/*
+Summary:
+1. The `App` component sets up the main structure of the application, defining routes and navigation.
+2. Protected routes ensure that certain pages are accessible only to logged-in users.
+3. The `Switch` component renders the first matching route.
+4. Redux is used to fetch user and product data when the application loads.
+5. Bootstrap is integrated for consistent styling across components.
+*/
