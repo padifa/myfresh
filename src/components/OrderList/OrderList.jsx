@@ -1,28 +1,31 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import OrderListItem from "../OrderListItem/OrderListItem";
-import { Table, Container } from "react-bootstrap";
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
+import React from "react"; // Import React for component creation
+import { Container, Table } from "react-bootstrap"; // Import Bootstrap components for styling
+import OrderListItem from "../OrderListItem/OrderListItem"; // Import the child component to render individual orders
+
+// OrderList functional component to display a list of orders in a table
 function OrderList({ orders }) {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
+  // Log all orders to the console for debugging purposes
   console.log("all the orders", orders);
 
   return (
+    // Use Bootstrap's Container component for responsive layout
     <Container fluid>
+      {/* Make the table horizontally scrollable for better UX on smaller screens */}
       <div style={{ overflowX: "auto" }}>
+        {/* Render a responsive, striped, bordered, and hoverable table */}
         <Table striped bordered hover responsive>
+          {/* Table header defining column titles */}
           <thead>
             <tr>
-              <th>Status</th>
-              <th>Total Amount</th>
-              <th>Created</th>
-              <th>Option</th>
+              <th>Status</th> {/* Column for the order's status */}
+              <th>Total Amount</th> {/* Column for the order's total amount */}
+              <th>Created</th> {/* Column for the order's creation date */}
+              <th>Option</th> {/* Column for any additional options */}
             </tr>
           </thead>
+          {/* Table body to dynamically render rows based on orders */}
           <tbody>
+            {/* Map through the orders array and render each order using the OrderListItem component */}
             {orders.map((order) => (
               <OrderListItem key={order.orderId} order={order} />
             ))}
@@ -33,8 +36,14 @@ function OrderList({ orders }) {
   );
 }
 
-export default OrderList;
+export default OrderList; // Export the component for use in other parts of the application
 
+{
+  /* 
+  The commented code below demonstrates an alternative way of rendering the orders
+  as an unordered list instead of a table. It is left here for reference or potential use.
+  */
+}
 {
   /* <ul>
         {orders.map((order) => (
