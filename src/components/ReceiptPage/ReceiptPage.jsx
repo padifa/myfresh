@@ -1,93 +1,99 @@
 import React, { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom"; // Import hooks and components for routing.
 
-import { useDispatch, useSelector } from "react-redux";
-// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useDispatch, useSelector } from "react-redux"; // Import hooks for interacting with Redux store.
+// import { useHistory } from "react-router-dom/cjs/react-router-dom.min"; // Commented out, not currently in use.
 import { useEffect } from "react";
 
-import { Container, Table, Card, Button } from "react-bootstrap";
-// import ReceiptListItem from "./ReceiptListItem";
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
+import { Container, Table, Card, Button } from "react-bootstrap"; // Import Bootstrap components for styling.
+// import ReceiptListItem from "./ReceiptListItem"; // Commented out, not currently in use.
+
+// Functional component for displaying a receipt page.
 function ReceiptPage() {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
+  // Extract the orderId parameter from the URL using useParams.
   const { orderId } = useParams();
 
+  // Select the orders data from the Redux store.
   const orders = useSelector((store) => store.order);
 
+  // Find the specific order that matches the orderId.
   const order = orders.find(
     (order) => Number(order.orderId) === Number(orderId)
   );
 
+  // Log the selected order and orderId for debugging.
   console.log("Order", order);
   console.log("my receipt for order:", orderId);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // Get the dispatch function to send actions to Redux.
   useEffect(() => {
+    // Dispatch an action to fetch orders when the component mounts.
     dispatch({
       type: "FETCH_ORDER",
     });
   }, [dispatch]);
-  //   const totalCost = cart
-  //     .reduce(
-  //       (total, product) =>
-  //         total +
-  //         parseFloat(Number(product?.price) * Number(product?.quantity) || 0),
-  //       0
-  //     )
-  //     .toFixed(2);
 
-  //   const handleReceipt = () => {
-  //     console.log("total amount", totalCost);
-  //     const newOrder = {
-  //       products: cart,
-  //       total_amount: totalCost,
-  //       status: "Purchased",
-  //       option: type,
-  //       quantity,
-  //       price,
-  //     };
+  // Code for calculating the total cost is commented out, as it is not used in the current implementation.
+  // const totalCost = cart
+  //   .reduce(
+  //     (total, product) =>
+  //       total +
+  //       parseFloat(Number(product?.price) * Number(product?.quantity) || 0),
+  //     0
+  //   )
+  //   .toFixed(2);
 
-  //     console.log("my new order", newOrder);
-  //     dispatch({ type: "ADD_ORDER", payload: newOrder });
-  //     dispatch({ type: "UNSET_CART" });
-  //     history.push("/order");
+  // Handle receipt-related actions (currently commented out).
+  // const handleReceipt = () => {
+  //   console.log("total amount", totalCost);
+  //   const newOrder = {
+  //     products: cart,
+  //     total_amount: totalCost,
+  //     status: "Purchased",
+  //     option: type,
+  //     quantity,
+  //     price,
   //   };
+  //   console.log("my new order", newOrder);
+  //   dispatch({ type: "ADD_ORDER", payload: newOrder });
+  //   dispatch({ type: "UNSET_CART" });
+  //   history.push("/order");
+  // };
 
-  //   useEffect(() => {
-  //     console.log("the receipt", cart.length);
-  //   }, []);
+  // Debugging log for receipt data (currently commented out).
+  // useEffect(() => {
+  //   console.log("the receipt", cart.length);
+  // }, []);
 
   return (
     <>
       <Container style={{ marginTop: "2rem" }}>
         <Card className="text-center">
+          {/* Display the order ID in the card header */}
           <Card.Header as="h1">Order: #{orderId}</Card.Header>
           <Card.Body>
             <Card.Title>Here is your receipt</Card.Title>
             <Table striped bordered hover responsive>
               <thead>
                 <tr>
+                  {/* Table headers for the receipt */}
                   <th>Products</th>
                   <th>Quantity</th>
                   <th>Unit price</th>
                   <th>Option</th>
                   <th>Date</th>
-
                   <th>Total Amount</th>
                   <th>Status</th>
                 </tr>
               </thead>
               <tbody>
+                {/* Render each product in the order */}
                 {order?.products.map((product, index) => (
                   <tr key={index}>
                     <td>{product?.productName}</td>
                     <td>{product?.quantity}</td>
                     <td>{product?.price}</td>
                     <td>{order?.option}</td>
-
                     <td>{new Date(order?.created_at).toLocaleDateString()}</td>
                     <td>${order?.total_amount}</td>
                     <td>{order?.status}</td>
@@ -99,6 +105,7 @@ function ReceiptPage() {
         </Card>
       </Container>
       <Container style={{ marginTop: "2rem" }}>
+        {/* Link to navigate back to the orders page */}
         <Link to="/order" className="d-inline-block mt-3">
           <Button variant="success" type="button" className="mt-3">
             Back
@@ -106,7 +113,7 @@ function ReceiptPage() {
         </Link>
       </Container>
     </>
-    //   /* <td> */</td>
+    // The following code is commented out, as it is not part of the current implementation.
     // <>
     //   <Container>
     //     <div
@@ -141,7 +148,6 @@ function ReceiptPage() {
     //       <hr />
     //       <label>Total: ${totalCost}</label>
     //       <br />
-
     //       <Button variant="success" onClick={handleReceipt}>
     //         Print
     //       </Button>
@@ -151,4 +157,4 @@ function ReceiptPage() {
   );
 }
 
-export default ReceiptPage;
+export default ReceiptPage; // Export the component for use in other parts of the application.
