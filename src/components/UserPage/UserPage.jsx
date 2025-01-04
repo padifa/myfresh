@@ -3,22 +3,38 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Container, Button, Row, Col, Card } from "react-bootstrap";
 import { useState } from "react";
+
 function UserPage() {
+  // Accessing the current user from the Redux store
   const user = useSelector((store) => store.user);
+
+  // Accessing the list of products from the Redux store
   const products = useSelector((store) => store.product);
+
+  // Setting up history object for navigation
   const history = useHistory();
+
+  // Setting up dispatch to send actions to the Redux store
   const dispatch = useDispatch();
+
+  // Accessing the cart items from the Redux store
   const cart = useSelector((store) => store.cart);
+
+  // Local state to manage product quantity
   const [quantity, setQuantity] = useState(1);
+
+  // Navigate to the product details page
   const viewDetails = (productId) => {
     console.log("navigate to product detail page", productId);
-
     history.push(`/details/${productId}`);
   };
+
+  // Navigate to the product edit form
   const handleEdit = (productId) => {
     history.push(`/edit/productForm/${productId}`);
   };
 
+  // Dispatch an action to delete a product
   const handleDelete = (productId) => {
     dispatch({
       type: "DELETE_PRODUCT",
@@ -26,12 +42,13 @@ function UserPage() {
     });
   };
 
+  // Navigate to the product creation form
   const addProduct = () => {
     history.push(`/productForm`);
   };
 
+  // Adjust the quantity of a product
   const adjustQuantity = (amount) => {
-    // Assuming setQuantity is defined elsewhere in your component
     if (amount === "increase") {
       setQuantity(quantity + 1);
     } else if (amount === "decrease" && quantity > 1) {
@@ -41,21 +58,26 @@ function UserPage() {
     }
   };
 
+  // Navigate to the cart page
   const goToCart = () => {
     history.push(`/cart`);
   };
+
+  // Add a product to the cart
   const addToCart = (product) => {
     console.log("add item to the cart", product);
-    //product is one product item added to the cart
+    // Create a new cart item with additional quantity property
     const cartItem = { ...product };
     cartItem.quantity = quantity;
 
+    // Dispatch an action to add the product to the cart
     dispatch({
       type: "ADD_TO_CART",
       payload: cartItem,
     });
   };
 
+  // Filter products based on the user's role
   const displayedProducts =
     user.role.toLowerCase() === "farmer"
       ? products.filter(
@@ -66,6 +88,7 @@ function UserPage() {
   return (
     <>
       <Container className="mb-3">
+        {/* Show cart button and cart count if the user is a customer */}
         {user.role.toLowerCase() === "customer" && (
           <Row>
             <Col className="d-flex justify-content-start">
@@ -79,27 +102,32 @@ function UserPage() {
           </Row>
         )}
 
+        {/* Welcome message */}
         <h1 className="text-center mt-4">
           Welcome <strong>{user.username}</strong> to Our Fresh Product
           Marketplace
         </h1>
 
+        {/* Instructional message based on user role */}
         <p className="text-center mb-4">
           {user.role.toLowerCase() === "farmer"
             ? "Manage your organic product listings below. Add, edit, or remove items to keep your offerings fresh and up-to-date."
             : "Browse through a selection of fresh, organic products from local farmers."}
         </p>
 
+        {/* Add product button for farmers */}
         {user.role.toLowerCase() === "farmer" && (
           <Button variant="success" onClick={addProduct} className="mb-3">
             Add Product
           </Button>
         )}
 
+        {/* Display products */}
         <Row>
           {displayedProducts.map((product) => (
             <Col md={4} sm={6} xs={12} className="mb-4" key={product.id}>
               <Card>
+                {/* Product image */}
                 <Card.Img
                   variant="top"
                   src={product.image_url || "public/Images/apple.jpeg"}
@@ -107,6 +135,7 @@ function UserPage() {
                   style={{ height: "200px", objectFit: "cover" }}
                 />
                 <Card.Body>
+                  {/* Product details */}
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Text>
                     <strong>Category:</strong> {product.category}
@@ -117,6 +146,8 @@ function UserPage() {
                     <br />
                     {product.description}
                   </Card.Text>
+
+                  {/* Buttons for farmers */}
                   {user.role.toLowerCase() === "farmer" ? (
                     <div className="d-flex justify-content-between">
                       <Button
@@ -134,6 +165,7 @@ function UserPage() {
                       </Button>
                     </div>
                   ) : (
+                    // Buttons for customers
                     <div className="d-flex justify-content-between">
                       <Button
                         variant="success"
