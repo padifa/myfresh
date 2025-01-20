@@ -1,113 +1,112 @@
+/* --------------------------------------------------------------------------------
+Global Styles
+-------------------------------------------------------------------------------- */
 html,
 body,
 #react-root {
-  height: 100%;
-  background-color: #faf6f6;
+  height: 100%; /* Ensures the entire viewport height is utilized */
+  background-color: #faf6f6; /* Sets a light background color for the app */
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Defines a modern, sans-serif font stack */
+  margin: 0px; /* Removes default margin from the body */
 }
 
 img {
-  display: inline-block;
-  max-width: 100%;
+  display: inline-block; /* Ensures images behave like inline-block elements */
+  max-width: 100%; /* Prevents images from exceeding the width of their container */
 }
 
 /* --------------------------------------------------------------------------------
 Container
 -------------------------------------------------------------------------------- */
-
 .container {
-  padding: 20px;
+  padding: 20px; /* Adds space inside the container for content */
 }
 
 /* --------------------------------------------------------------------------------
-Button
+Button Styles
 -------------------------------------------------------------------------------- */
-
 .btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border-color: #014041;
-  border-width: 1px 1px 3px;
-  border-radius: 4px;
-  background-color: #00acb0;
-  color: #f8f8f8;
-  font-size: 1.1rem;
-  outline: 0;
-  cursor: pointer;
+  display: inline-block; /* Makes buttons inline-block elements */
+  padding: 10px 20px; /* Adds spacing inside the button */
+  border-color: #014041; /* Sets the border color */
+  border-width: 1px 1px 3px; /* Customizes border width for depth effect */
+  border-radius: 4px; /* Rounds the corners of the button */
+  background-color: #00acb0; /* Sets the button's background color */
+  color: #f8f8f8; /* Sets the text color */
+  font-size: 1.1rem; /* Increases font size for better visibility */
+  outline: 0; /* Removes the outline when the button is focused */
+  cursor: pointer; /* Changes the cursor to a pointer on hover */
 }
 
 .btn_sizeMin {
-  min-height: 50px;
-  min-width: 100px;
+  min-height: 50px; /* Sets a minimum height for the button */
+  min-width: 100px; /* Sets a minimum width for the button */
 }
 
 .btn_sizeSm {
-  padding: 10px 15px;
-  font-size: 0.8rem;
+  padding: 10px 15px; /* Reduces padding for a smaller button size */
+  font-size: 0.8rem; /* Decreases font size */
 }
 
 .btn_sizeFull {
-  display: block;
-  width: 100%;
+  display: block; /* Makes the button behave like a block element */
+  width: 100%; /* Sets the button to take full width of its container */
 }
 
 .btn:hover {
-  background-color: #008183;
-  text-decoration: none;
+  background-color: #008183; /* Changes background color on hover */
+  text-decoration: none; /* Removes underline from text */
 }
 
-/* This line makes the "Register" and "Login" buttons look like links */
+/* "Register" and "Login" buttons styled as links */
 .btn_asLink {
-  padding: 0;
-  border-width: 0;
-  border-bottom: 1px solid #444;
-  border-radius: 0;
-  background: none;
-  font: inherit;
-  color: #444;
+  padding: 0; /* Removes padding for a link-like appearance */
+  border-width: 0; /* Removes borders */
+  border-bottom: 1px solid #444; /* Adds a bottom border for the link style */
+  border-radius: 0; /* Removes border radius */
+  background: none; /* Removes background */
+  font: inherit; /* Inherits font styles from parent */
+  color: #444; /* Sets text color */
 }
 
 .btn_asLink:hover {
-  background-color: transparent;
-  border-color: #008183;
-  color: #008183;
+  background-color: transparent; /* Keeps background transparent on hover */
+  border-color: #008183; /* Changes border color on hover */
+  color: #008183; /* Changes text color on hover */
 }
 
 /* --------------------------------------------------------------------------------
-Alert
+Alert Styles
 -------------------------------------------------------------------------------- */
-
 .alert {
-  box-sizing: border-box;
-  padding: 15px 10px;
-  margin: 15px 0;
-  border: 2px solid #e01616;
-  background-color: #efefef;
-  border-radius: 3px;
-  color: #e01616;
-  font-size: 0.8rem;
+  box-sizing: border-box; /* Includes padding and border in the element's dimensions */
+  padding: 15px 10px; /* Adds padding inside the alert box */
+  margin: 15px 0; /* Adds vertical spacing around the alert */
+  border: 2px solid #e01616; /* Adds a red border */
+  background-color: #efefef; /* Sets a light gray background */
+  border-radius: 3px; /* Slightly rounds the corners */
+  color: #e01616; /* Sets the text color to red */
+  font-size: 0.8rem; /* Sets a smaller font size */
 }
 
 /* --------------------------------------------------------------------------------
-Form Treatment
+Form Treatment Styles
 -------------------------------------------------------------------------------- */
-
 .formPanel {
-  box-sizing: border-box;
-  width: 400px;
-  max-width: 100%;
-  padding: 25px;
-  margin: 0 auto 20px;
-  background-color: #efefef;
-  border-radius: 3px;
-  box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
+  box-sizing: border-box; /* Ensures padding and border are included in dimensions */
+  width: 400px; /* Sets a fixed width for the form */
+  max-width: 100%; /* Ensures the form is responsive */
+  padding: 25px; /* Adds space inside the form */
+  margin: 0 auto 20px; /* Centers the form and adds spacing below */
+  background-color: #efefef; /* Sets the form's background color */
+  border-radius: 3px; /* Rounds the corners of the form */
+  box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4); /* Adds a subtle shadow effect */
 }
 
 input {
-  margin: 5px;
-  margin-bottom: 10px;
+  margin: 5px; /* Adds spacing around input fields */
+  margin-bottom: 10px; /* Adds extra spacing below each input */
 }
